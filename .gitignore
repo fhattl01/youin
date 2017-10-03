@@ -1,5 +1,13 @@
 # ignore all . files and . folders
-.*
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
 
 # Dont ignore .gitignore (this file)
 # This is just for verbosity, you can leave it out if
