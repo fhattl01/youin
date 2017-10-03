@@ -1,5 +1,6 @@
 package edu.tufts.cs.comp150.youin;
 
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
