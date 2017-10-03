@@ -8,7 +8,7 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="344dp"
         android:layout_height="495dp"
         android:weightSum="10"
         android:orientation="vertical"
@@ -31,34 +31,34 @@
                 android:id="@+id/createEventWhatButton"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:background="#3a65c9"
+                android:background="@color/blue"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pager_image"
-                android:text="What ?"/>
+                android:text="What ?"
+                android:onClick="navigateToWhat"/>
 
             <Button
                 android:id="@+id/createEventWhenButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#FFFF"
+                android:background="@color/white"
                 android:text="When ?"
+                android:onClick="navigateToWhen"
                 />
-
-
             <Button
                 android:id="@+id/createEventWhoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#FFFF"
+                android:background="@color/white"
                 android:text="Who ?" />
             <Button
                 android:id="@+id/createEventWhereButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#FFFF"
+                android:background="@color/white"
                 android:text="Where ?" />
 
         </LinearLayout>
@@ -70,25 +70,48 @@
             android:elevation="100dp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="0dp">
-
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:weightSum="10"
                 android:orientation="vertical">
 
-                <AutoCompleteTextView
-                    android:id="@+id/createEventName"
+                <EditText
+                    android:id="@+id/eventName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Name" />
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="Name"
+                    android:visibility="visible"/>
 
-                <AutoCompleteTextView
-                    android:id="@+id/createEventDescription"
+                <EditText
+                    android:id="@+id/eventDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Description" />
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="Event Description"
+                    android:visibility="visible"/>
 
+                <TimePicker
+                    android:id="@+id/timePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:visibility="gone"/>
+
+                <DatePicker
+                    android:id="@+id/datePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:visibility="gone"/>
             </LinearLayout>
+            </ScrollView>
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
