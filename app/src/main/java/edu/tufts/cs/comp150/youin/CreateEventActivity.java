@@ -10,7 +10,7 @@ import android.widget.TimePicker;
 
 
 public class CreateEventActivity extends AppCompatActivity {
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
