@@ -8,8 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import java.util.ArrayList;
-import java.util.List;
+import android.content.Context;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
+
 
 public class CreateEventActivity extends AppCompatActivity {
 
@@ -17,6 +19,19 @@ public class CreateEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+    }
+
+    public void navigateToWhat(View v) {
+        handleEventAttributeCategoryChange(EventAttributeCategory.WHAT);
+    }
+
+    public void navigateToWhen(View v) {
+        handleEventAttributeCategoryChange(EventAttributeCategory.WHEN);
+    }
+
+    public void navigateToWho(View v) {
+
+        handleEventAttributeCategoryChange(EventAttributeCategory.WHO);
         //test populate the list view
         String[] myStringArray = {"Frank", "Frances", "Fernando"};
         ArrayAdapter<String> testAdapter = new ArrayAdapter<>(this,
@@ -34,18 +49,6 @@ public class CreateEventActivity extends AppCompatActivity {
         people.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         min_people.setAdapter(people);
-    }
-
-    public void navigateToWhat(View v) {
-        handleEventAttributeCategoryChange(EventAttributeCategory.WHAT);
-    }
-
-    public void navigateToWhen(View v) {
-        handleEventAttributeCategoryChange(EventAttributeCategory.WHEN);
-    }
-
-    public void navigateToWho(View v) {
-        handleEventAttributeCategoryChange(EventAttributeCategory.WHO);
     }
 
     public void navigateToWhere (View v) {
@@ -81,6 +84,8 @@ public class CreateEventActivity extends AppCompatActivity {
             case WHEN:
                 when.setBackgroundColor(getResources().getColor(R.color.blue));
                 whenCard.setVisibility(View.VISIBLE);
+                InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
                 break;
             case WHO:
                 who.setBackgroundColor(getResources().getColor(R.color.blue));
@@ -91,5 +96,9 @@ public class CreateEventActivity extends AppCompatActivity {
                 whereCard.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+    public void sendInvite(View view) {
+        TextView feedback = (TextView) findViewById(R.id.feedback);
+        feedback.setText("your Invitation has been sent!");
     }
 }

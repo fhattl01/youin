@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
-            android:visibility="gone">
+            android:visibility="visible">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -107,6 +107,7 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
             android:visibility="gone">
+
             <ScrollView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -137,7 +138,7 @@
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
-            android:visibility="visible">
+            android:visibility="gone">
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -206,6 +207,23 @@
                         android:inputType="textPersonName"
                         android:hint="Location Name"
                         android:text="" />
+                    <Button
+                        android:id="@+id/sendInvite"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="sendInvite"
+                        android:text = "Send Invite"
+                        android:background="#F61C1C"
+                        />
+                    <TextView
+                        android:id="@+id/feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:layout_editor_absoluteY="286dp"
+                        android:textColor="#000000"/>
                 </LinearLayout>
             </ScrollView>
         </android.support.v7.widget.CardView>
