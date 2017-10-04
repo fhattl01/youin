@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
+import android.widget.Spinner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateEventActivity extends AppCompatActivity {
 
@@ -16,11 +18,22 @@ public class CreateEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
         //test populate the list view
-        String[] myStringArray = {"Frank","Frances","Fernando"};
+        String[] myStringArray = {"Frank", "Frances", "Fernando"};
         ArrayAdapter<String> testAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, myStringArray);
         ListView friendsList = (ListView) findViewById(R.id.inviteList);
         friendsList.setAdapter(testAdapter);
+
+        Spinner min_people = (Spinner) findViewById(R.id.minPeopleSpinner);
+
+        ArrayAdapter<CharSequence> people = ArrayAdapter.createFromResource(
+                this,
+                R.array.min_people_amount,
+                android.R.layout.simple_spinner_item);
+
+        people.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        min_people.setAdapter(people);
     }
 
     public void navigateToWhat(View v) {
