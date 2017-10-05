@@ -1,16 +1,19 @@
 package edu.tufts.cs.comp150.youin;
 
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 
 public class CreateEventActivity extends AppCompatActivity {
@@ -21,6 +24,8 @@ public class CreateEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_event);
         CardView what = (CardView)findViewById(R.id.whatView);
         what.setVisibility(View.VISIBLE);
+        Button whatButton = (Button)findViewById(R.id.createEventWhatButton);
+        whatButton.setPaintFlags(whatButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
     public void navigateToWhat(View v) {
@@ -64,10 +69,10 @@ public class CreateEventActivity extends AppCompatActivity {
         Button who = (Button)findViewById(R.id.createEventWhoButton);
         Button where = (Button)findViewById(R.id.createEventWhereButton);
 
-        what.setBackgroundColor(getResources().getColor(R.color.white));
-        when.setBackgroundColor(getResources().getColor(R.color.white));
-        who.setBackgroundColor(getResources().getColor(R.color.white));
-        where.setBackgroundColor(getResources().getColor(R.color.white));
+        what.setPaintFlags(what.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
+        when.setPaintFlags(when.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
+        who.setPaintFlags(who.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
+        where.setPaintFlags(where.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
 
         CardView whatCard = (CardView)findViewById(R.id.whatView);
         CardView whenCard = (CardView)findViewById(R.id.whenView);
@@ -84,7 +89,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
         switch (changeTo) {
             case WHAT:
-                what.setBackgroundColor(getResources().getColor(R.color.blue));
+                what.setPaintFlags(what.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 whatCard.setVisibility(View.VISIBLE);
                 backButton.setVisibility(View.GONE);
                 sendInvite.setVisibility(View.GONE);
@@ -96,7 +101,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 });
                 break;
             case WHEN:
-                when.setBackgroundColor(getResources().getColor(R.color.blue));
+                when.setPaintFlags(when.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 whenCard.setVisibility(View.VISIBLE);
                 InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
@@ -116,7 +121,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 });
                 break;
             case WHO:
-                who.setBackgroundColor(getResources().getColor(R.color.blue));
+                who.setPaintFlags(who.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 whoCard.setVisibility(View.VISIBLE);
 
                 backButton.setVisibility(View.VISIBLE);
@@ -134,7 +139,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 });
                 break;
             case WHERE:
-                where.setBackgroundColor(getResources().getColor(R.color.blue));
+                where.setPaintFlags(where.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 whereCard.setVisibility(View.VISIBLE);
 
                 backButton.setVisibility(View.VISIBLE);
@@ -149,6 +154,23 @@ public class CreateEventActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    public void toggleWhenSelector(View v) {
+        Button toggle = (Button)findViewById(R.id.whenSelectorToggle);
+        TimePicker timePicker = (TimePicker)findViewById(R.id.timePicker);
+        DatePicker datePicker = (DatePicker)findViewById(R.id.datePicker);
+
+        if (timePicker.getVisibility() == View.GONE) {
+            datePicker.setVisibility(View.GONE);
+            timePicker.setVisibility(View.VISIBLE);
+            toggle.setText(R.string.toggleToDatePicker);
+        } else {
+            datePicker.setVisibility(View.VISIBLE);
+            timePicker.setVisibility(View.GONE);
+            toggle.setText(R.string.toggleToTimePicker);
+        }
+    }
+
     public void sendInvite(View view) {
         TextView feedback = (TextView) findViewById(R.id.feedback);
         feedback.setText("your Invitation has been sent!");

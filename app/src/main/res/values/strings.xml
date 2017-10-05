@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">You In?</string>
+    <string name="toggleToDatePicker">Select a Date</string>
+    <string name="toggleToTimePicker">Select a Time</string>
+    <string name="createEvent">Create Event</string>
 
     <string-array name="min_people_amount">
         <item>1</item>
