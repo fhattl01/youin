@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="344dp"
         android:layout_height="495dp"
-        android:weightSum="10"
+        android:weightSum="1"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
@@ -70,7 +70,8 @@
         <android.support.v7.widget.CardView
             android:id="@+id/whatView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
             android:visibility="visible">
@@ -103,7 +104,8 @@
         <android.support.v7.widget.CardView
             android:id="@+id/whenView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
             android:visibility="gone">
@@ -135,20 +137,18 @@
         <android.support.v7.widget.CardView
             android:id="@+id/whoView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
             android:visibility="gone">
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <Button
                             android:id="@+id/friends"
@@ -167,34 +167,40 @@
                     <ListView
                         android:id="@+id/inviteList"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-
-                    <TextView
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Set Minimum Amount of People:"
-                        android:textColor="#000000"
-                        />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Set Minimum Amount of People:"
+                            android:textColor="#000000"
+                            android:layout_weight="6"/>
 
-                    <Spinner
-                        android:id="@+id/minPeopleSpinner"
-                        android:layout_width="120dp"
-                        android:layout_height="match_parent"
-                        android:scrollbarTrackVertical="@color/blue"/>
+                        <Spinner
+                            android:id="@+id/minPeopleSpinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:scrollbarTrackVertical="@color/blue"/>
+                    </LinearLayout>
+
+
                 </LinearLayout>
-            </ScrollView>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:id="@+id/whereView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
             android:visibility="gone">
-            <ScrollView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -206,15 +212,7 @@
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:hint="Location Name"
-                        android:text="" />
-                    <Button
-                        android:id="@+id/sendInvite"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="sendInvite"
-                        android:text = "Send Invite"
-                        android:background="#F61C1C"
-                        />
+                        android:text=""/>
                     <TextView
                         android:id="@+id/feedback"
                         android:layout_width="match_parent"
@@ -225,9 +223,40 @@
                         tools:layout_editor_absoluteY="286dp"
                         android:textColor="#000000"/>
                 </LinearLayout>
-            </ScrollView>
         </android.support.v7.widget.CardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:background="@color/blue"
+                android:visibility="gone"
+                />
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:background="@color/blue"
+                android:onClick="navigateToWhen"
+                />
+            <Button
+                android:id="@+id/sendInvite"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:onClick="sendInvite"
+                android:text="Send Invite"
+                android:background="#F61C1C"
+                android:visibility="gone"
+                />
 
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

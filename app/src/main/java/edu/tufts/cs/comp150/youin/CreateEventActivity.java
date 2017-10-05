@@ -19,6 +19,8 @@ public class CreateEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+        CardView what = (CardView)findViewById(R.id.whatView);
+        what.setVisibility(View.VISIBLE);
     }
 
     public void navigateToWhat(View v) {
@@ -34,10 +36,10 @@ public class CreateEventActivity extends AppCompatActivity {
         handleEventAttributeCategoryChange(EventAttributeCategory.WHO);
         //test populate the list view
         String[] myStringArray = {"Frank", "Frances", "Fernando"};
-        ArrayAdapter<String> testAdapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> testFriendsAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, myStringArray);
         ListView friendsList = (ListView) findViewById(R.id.inviteList);
-        friendsList.setAdapter(testAdapter);
+        friendsList.setAdapter(testFriendsAdapter);
 
         Spinner min_people = (Spinner) findViewById(R.id.minPeopleSpinner);
 
@@ -65,7 +67,7 @@ public class CreateEventActivity extends AppCompatActivity {
         what.setBackgroundColor(getResources().getColor(R.color.white));
         when.setBackgroundColor(getResources().getColor(R.color.white));
         who.setBackgroundColor(getResources().getColor(R.color.white));
-        when.setBackgroundColor(getResources().getColor(R.color.white));
+        where.setBackgroundColor(getResources().getColor(R.color.white));
 
         CardView whatCard = (CardView)findViewById(R.id.whatView);
         CardView whenCard = (CardView)findViewById(R.id.whenView);
@@ -76,24 +78,74 @@ public class CreateEventActivity extends AppCompatActivity {
         whoCard.setVisibility(View.GONE);
         whereCard.setVisibility(View.GONE);
 
+        Button backButton = (Button)findViewById(R.id.backButton);
+        Button nextButton = (Button)findViewById(R.id.nextButton);
+        Button sendInvite = (Button)findViewById(R.id.sendInvite);
+
         switch (changeTo) {
             case WHAT:
                 what.setBackgroundColor(getResources().getColor(R.color.blue));
                 whatCard.setVisibility(View.VISIBLE);
+                backButton.setVisibility(View.GONE);
+                sendInvite.setVisibility(View.GONE);
+                nextButton.setVisibility(View.VISIBLE);
+                nextButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        navigateToWhen(v);
+                    }
+                });
                 break;
             case WHEN:
                 when.setBackgroundColor(getResources().getColor(R.color.blue));
                 whenCard.setVisibility(View.VISIBLE);
                 InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+
+                backButton.setVisibility(View.VISIBLE);
+                backButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        navigateToWhat(v);
+                    }
+                });
+                sendInvite.setVisibility(View.GONE);
+                nextButton.setVisibility(View.VISIBLE);
+                nextButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        navigateToWho(v);
+                    }
+                });
                 break;
             case WHO:
                 who.setBackgroundColor(getResources().getColor(R.color.blue));
                 whoCard.setVisibility(View.VISIBLE);
+
+                backButton.setVisibility(View.VISIBLE);
+                backButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        navigateToWhen(v);
+                    }
+                });
+                sendInvite.setVisibility(View.GONE);
+                nextButton.setVisibility(View.VISIBLE);
+                nextButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        navigateToWhere(v);
+                    }
+                });
                 break;
             case WHERE:
                 where.setBackgroundColor(getResources().getColor(R.color.blue));
                 whereCard.setVisibility(View.VISIBLE);
+
+                backButton.setVisibility(View.VISIBLE);
+                backButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        navigateToWho(v);
+                    }
+                });
+                sendInvite.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.GONE);
+
                 break;
         }
     }
