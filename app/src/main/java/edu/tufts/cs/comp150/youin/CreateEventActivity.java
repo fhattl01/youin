@@ -15,6 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.util.Calendar;
+
 
 public class CreateEventActivity extends AppCompatActivity {
 
@@ -26,6 +28,43 @@ public class CreateEventActivity extends AppCompatActivity {
         what.setVisibility(View.VISIBLE);
         Button whatButton = (Button)findViewById(R.id.createEventWhatButton);
         whatButton.setPaintFlags(whatButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        final TimePicker timePicker = (TimePicker)findViewById(R.id.timePicker);
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                int hour = hourOfDay;
+                String am_pm;
+
+                if (hour == 0) {
+                    am_pm = "am";
+                    hour = 12;
+                } else if (hour < 12) {
+                    am_pm = "am";
+                    hour = hourOfDay;
+                } else {
+                    am_pm = "pm";
+                    hour = hourOfDay - 12;
+                }
+                //TODO fix time display bugs
+                TextView timeString = (TextView)findViewById(R.id.timeString);
+                timeString.setText("Your event is at: " + hour + ":" + minute + am_pm);
+            }
+
+        });
+
+        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH),
+                        new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                TextView selectedTime = (TextView)findViewById(R.id.dateString);
+                selectedTime.setText("on: " + month + "/" + dayOfMonth + "/" + year);
+            }
+        });
     }
 
     public void navigateToWhat(View v) {

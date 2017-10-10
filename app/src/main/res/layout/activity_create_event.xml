@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,10 +13,9 @@
         android:weightSum="1"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="8dp">
+        android:layout_marginRight="8dp"
+        app:layout_constraintLeft_toLeftOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,14 +36,13 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_action_cancel"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="4"
             android:id="@+id/createEventBar"
-            tools:layout_editor_absoluteX="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp">
+            app:layout_constraintTop_toTopOf="parent">
 
             <Button
                 android:id="@+id/createEventWhatButton"
@@ -89,7 +85,7 @@
             android:layout_weight="1"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
-            android:visibility="gone">
+            android:visibility="visible">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -121,38 +117,55 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp"
-            android:visibility="visible">
+            android:visibility="gone">
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:weightSum="1"
                     android:orientation="vertical">
 
-                    <TimePicker
-                        android:id="@+id/timePicker"
+                    <TextView
+                        android:id="@+id/timeString"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:visibility="visible"/>
+                        android:text="Choose when your event is."
+                        android:textSize="24sp" />
 
-                    <DatePicker
-                        android:id="@+id/datePicker"
+                    <TextView
+                        android:id="@+id/dateString"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:datePickerMode="spinner"
-                        android:calendarViewShown="false"
-                        android:visibility="gone"/>
+                        android:textSize="24sp" />
+
                     <Button
                         android:id="@+id/whenSelectorToggle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/toggleToDatePicker"
                         android:onClick="toggleWhenSelector"/>
+
+                    <TimePicker
+                        android:id="@+id/timePicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="visible"
+                        android:timePickerMode="clock"/>
+
+                    <DatePicker
+                        android:id="@+id/datePicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:calendarViewShown="true"
+                        android:visibility="gone"/>
+
                 </LinearLayout>
+            </ScrollView>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -275,5 +288,4 @@
 
         </LinearLayout>
     </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+</FrameLayout>
