@@ -1,5 +1,6 @@
 package edu.tufts.cs.comp150.youin;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,15 +16,31 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.Calendar;
 
 
 public class CreateEventActivity extends AppCompatActivity {
 
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
+        //Now check if this user is null
+        if (firebaseUser == null){
+            Intent login = new Intent(this, AuthUIActivity.class);
+            startActivity(login);
+        }
+
         CardView what = (CardView)findViewById(R.id.whatView);
         what.setVisibility(View.VISIBLE);
         Button whatButton = (Button)findViewById(R.id.createEventWhatButton);
