@@ -57,7 +57,7 @@ public class AuthUIActivity extends AppCompatActivity {
 
             // Successfully signed in
             if (resultCode == RESULT_OK) {
-                startActivity(new Intent(activity, CreateEventActivity.class));
+                startActivity(new Intent(activity, EventListActivity.class));
                 finish();
                 return;
             } else {

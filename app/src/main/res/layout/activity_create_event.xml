@@ -31,10 +31,12 @@
                 android:text="@string/createEvent"
                 android:textAlignment="textStart"
                 android:textSize="30sp" />
+
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_action_cancel"/>
+                android:onClick="cancelEventCreation"
+                android:src="@drawable/ic_action_cancel" />
         </LinearLayout>
 
         <LinearLayout

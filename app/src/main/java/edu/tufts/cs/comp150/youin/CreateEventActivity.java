@@ -231,4 +231,9 @@ public class CreateEventActivity extends AppCompatActivity {
         TextView feedback = (TextView) findViewById(R.id.feedback);
         feedback.setText("your Invitation has been sent!");
     }
+
+    public void cancelEventCreation(View v) {
+
+        startActivity(new Intent(this, EventListActivity.class));
+    }
 }
