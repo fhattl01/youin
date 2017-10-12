@@ -33,7 +33,7 @@ public class EventListActivity extends AppCompatActivity {
             startActivity(login);
         }
 
-        TextView v = (TextView) findViewById(R.id.displayBox);
+        TextView v = (TextView) findViewById(R.id.eventName);
         if (firebaseUser != null) {
             v.setText(firebaseUser.getUid());
         }

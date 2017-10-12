@@ -7,37 +7,73 @@
     tools:context="edu.tufts.cs.comp150.youin.EventListActivity">
     <LinearLayout
         android:orientation="vertical"
+        android:weightSum="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/displayBox"
-            android:layout_width="366dp"
-            android:layout_height="81dp"
-            android:text="Display"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="4dp" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <Button
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/eventView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            android:visibility="visible">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="10"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/eventName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:text="Title of Event"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/eventDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:text="Description of Event"/>
+
+                <CheckedTextView
+                    android:id="@+id/checkedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CheckedTextView" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    <Button
         android:id="@+id/createEventButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="createEventButton"
         android:text="Create Event"
+        android:textColor="@color/blue"
         tools:layout_editor_absoluteX="130dp"
         tools:layout_editor_absoluteY="447dp" />
 
-        <Button
+    <Button
         android:id="@+id/logOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="logOut"
         android:text="Log Out "
+        android:textColor="#FF0000"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="259dp" />
+    </android.support.v7.widget.RecyclerView>
 
-    </LinearLayout>
+</LinearLayout>
 
 </FrameLayout>
