@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class EventListActivity extends AppCompatActivity {
 
+    public class
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     @Override
