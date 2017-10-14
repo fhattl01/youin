@@ -1,6 +1,7 @@
 package edu.tufts.cs.comp150.youin;
 
 import android.media.Image;
+import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -10,6 +11,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Frank on 10/12/17.
@@ -25,7 +35,6 @@ public class ProfileManager {
 
     private String[] friendsIds;
     private String[] groupIds;
-    private String[] eventIds;
     private DatabaseReference ref;
 
 
@@ -45,6 +54,26 @@ public class ProfileManager {
                 profilePicture = null;
 
                 profileView.setupProfileView(firstName, lastName, email, profilePicture);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Database", "profile view data cancelled");
+            }
+        });
+    }
+
+    public void getEventData(final List<Event> eventList, final EventListView eventListView) {
+        DatabaseReference user = ref.child("users").child(uid).child("events");
+        user.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                eventList.clear();
+                for (DataSnapshot event : dataSnapshot.getChildren()) {
+                    String key = event.getKey();
+                    eventList.add(new Event(key, "event" + key, "test description"));
+                }
+                eventListView.eventViewDataChanged();
             }
 
             @Override

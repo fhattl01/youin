@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class EventListActivity extends AppCompatActivity {
+public class EventListActivity extends AppCompatActivity implements EventListView {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -56,23 +56,8 @@ public class EventListActivity extends AppCompatActivity {
     }
 
     private void prepareEventData() {
-        Event event1 = new Event("Dinner", "Carm Dinner", "Come to Carm Dinner at 6");
-        eventList.add(event1);
-
-        Event event2 = new Event("Golf", "Golf Round", "Come play gold");
-        eventList.add(event2);
-
-        Event event3 = new Event("Golf", "Golf Round", "Come play gold");
-        eventList.add(event3);
-
-        Event event4 = new Event("Golf", "Golf Round", "Come play gold");
-        eventList.add(event4);
-
-        Event event5 = new Event("Golf", "Golf Round", "Come play gold");
-        eventList.add(event5);
-
-
-        eAdapter.notifyDataSetChanged();
+        ProfileManager profileManager = new ProfileManager(firebaseUser.getUid());
+        profileManager.getEventData(eventList, this);
     }
 
     public void createEventButton(View v) {
@@ -94,4 +79,9 @@ public class EventListActivity extends AppCompatActivity {
                         }
                     });
         }
+
+    @Override
+    public void eventViewDataChanged() {
+        eAdapter.notifyDataSetChanged();
+    }
 }
