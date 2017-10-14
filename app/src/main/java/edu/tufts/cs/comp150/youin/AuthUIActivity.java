@@ -85,6 +85,6 @@ public class AuthUIActivity extends AppCompatActivity {
 
     private void showToast(String message) {
         //TODO figure out snackbar alerts
-        //Snackbar.make(, message, Snackbar.LENGTH_LONG).show();
+        //Snackbar.make(coordinator, message, Snackbar.LENGTH_LONG).show();
     }
 }

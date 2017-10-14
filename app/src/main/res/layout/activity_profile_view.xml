@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.tufts.cs.comp150.youin.ProfileViewActivity">
+    tools:context="edu.tufts.cs.comp150.youin.EventListActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/testProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="test text"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</FrameLayout>
