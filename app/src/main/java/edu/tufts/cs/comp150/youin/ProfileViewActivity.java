@@ -13,7 +13,8 @@ public class ProfileViewActivity extends AppCompatActivity implements ProfileVie
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    private TextView firstName;
+    private TextView name;
+    private TextView email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +29,20 @@ public class ProfileViewActivity extends AppCompatActivity implements ProfileVie
             Intent login = new Intent(this, AuthUIActivity.class);
             startActivity(login);
         } else {
-            firstName = (TextView)findViewById(R.id.testProfile);
+            name = (TextView)findViewById(R.id.profileName);
+            email = (TextView)findViewById(R.id.profileEmail);
             ProfileManager profile = new ProfileManager(firebaseUser.getUid());
             profile.getProfileViewData(this);
         }
     }
 
     public void setViewParameters(ProfileManager profile) {
-        TextView view = (TextView)findViewById(R.id.testProfile);
+        TextView view = (TextView)findViewById(R.id.profileName);
     }
 
     @Override
     public void setupProfileView(String firstName, String lastName, String userEmail, Image profilePicture) {
-        this.firstName.setText(firstName + " " + lastName + " Email: " + userEmail);
+        this.name.setText(firstName + " " + lastName);
+        this.email.setText(userEmail);
     }
 }

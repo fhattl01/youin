@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".profileViewActivity" />
-        <activity android:name=".ProfileViewActivity"></activity>
+        <activity android:name=".ProfileViewActivity" />
+        <activity android:name=".ManageFriendsActivity"></activity>
     </application>
 
 </manifest>
