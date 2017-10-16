@@ -94,9 +94,10 @@ public class ProfileManager {
                     friendRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            String userId = dataSnapshot.getKey();
                             String fn = (String)dataSnapshot.child("fn").getValue();
                             String ln = (String)dataSnapshot.child("ln").getValue();
-                            friendList.add(new Friend(fn + " " + ln));
+                            friendList.add(new Friend(fn + " " + ln, userId));
                             friendListView.friendDataChanged();
                         }
 
