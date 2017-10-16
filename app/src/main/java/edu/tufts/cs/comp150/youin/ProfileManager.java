@@ -17,8 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -69,11 +71,22 @@ public class ProfileManager {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 eventList.clear();
-                for (DataSnapshot event : dataSnapshot.getChildren()) {
-                    String key = event.getKey();
-                    eventList.add(new Event(key, "event" + key, "test description"));
+                for (final DataSnapshot event : dataSnapshot.getChildren()) {
+                    String eventId = event.getKey();
+                    DatabaseReference eventRef = ref.child("events").child(eventId);
+                    eventRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            eventList.add(dataSnapshot.getValue(Event.class));
+                            eventListView.eventViewDataChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.d("Database", "profile view data cancelled");
+                        }
+                    });
                 }
-                eventListView.eventViewDataChanged();
             }
 
             @Override
@@ -91,7 +104,7 @@ public class ProfileManager {
                 friendList.clear();
                 for (DataSnapshot friend : dataSnapshot.getChildren()) {
                     DatabaseReference friendRef = ref.child("users").child(friend.getKey());
-                    friendRef.addValueEventListener(new ValueEventListener() {
+                    friendRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String userId = dataSnapshot.getKey();
@@ -116,5 +129,21 @@ public class ProfileManager {
                 Log.d("Database", "profile view data cancelled");
             }
         });
+    }
+
+    public void createEvent(Event e) {
+        DatabaseReference eventsRef = ref.child("events");
+
+        DatabaseReference pushedEventRef = eventsRef.push();
+        pushedEventRef.setValue(e);
+        String eventId = pushedEventRef.getKey();
+
+        List<String> invited = e.getFriendsInvitedIds();
+        invited.add(e.getOwner());
+
+        for (String user : invited) {
+            DatabaseReference userEventsListRef = ref.child("users").child(user).child("events");
+            userEventsListRef.child(eventId).setValue(true);
+        }
     }
 }

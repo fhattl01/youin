@@ -11,45 +11,41 @@ import java.util.List;
  */
 
 public class Event {
-    private String eventId;
     private String name;
     private String description;
     private String location;
-    private Date dateOfEvent;
-    private Time start;
-    private Time rsvpDeadline;
+    private Date startTime;
+    private Date rsvpDeadline;
+    private List<String> friendsInvitedIds;
     private List<String> friendsGoingIds;
     private List<String> friendsDeclinedIds;
     private int minPeopleToGo;
-    private String owner;
+    private String ownerId;
 
 
 
     public Event() {
     }
 
-    public Event(String eventId, String name, String description) {
-        this.eventId = eventId;
+    public Event(String name, String description) {
         this.name = name;
         this.description = description;
      //   this.dateOfEvent = dateOfEvent;
      //   this.timeOfEvent = timeofEvent;
     }
 
-    public Event(String id, String eventName, String eventDescription, String eventLocation,
-                 Date date, Time startTime, Time respondDeadline, List<String> going,
-                 List<String> declined, int minimumPeople, String ownerId) {
-        eventId = id;
+    public Event(String eventName, String eventDescription, String eventLocation, Date eventStartTime, Date respondDeadline, List<String> friendsInvited, List<String> going,
+                 List<String> declined, int minimumPeople, String eventOwnerId) {
         name = eventName;
         description = eventDescription;
         location = eventLocation;
-        dateOfEvent = date;
-        start = startTime;
+        startTime = eventStartTime;
         rsvpDeadline = respondDeadline;
+        friendsInvitedIds = friendsInvited;
         friendsGoingIds = going;
         friendsDeclinedIds = declined;
         minPeopleToGo = minimumPeople;
-        owner = ownerId;
+        ownerId = eventOwnerId;
 
     }
 
@@ -58,19 +54,40 @@ public class Event {
         return name;
     }
 
-    public String getEventId() {
-        return eventId;
-    }
 
     public String getDescription() {
         return description;
     }
-/*
-    public Date getDateofEvent() {
-        return dateOfEvent;
+
+    public String getLocation() {
+        return location;
     }
 
-    public Time getTimeOfEvent() {
-        return timeOfEvent;
-    }*/
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public Date getRsvpDeadline() {
+        return rsvpDeadline;
+    }
+
+    public List<String> getFriendsInvitedIds() {
+        return friendsInvitedIds;
+    }
+
+    public List<String> getFriendsGoingIds() {
+        return friendsGoingIds;
+    }
+
+    public List<String> getFriendsDeclinedIds() {
+        return friendsDeclinedIds;
+    }
+
+    public String getOwner() {
+        return ownerId;
+    }
+
+    public int getMinPeopleToGo() {
+        return minPeopleToGo;
+    }
 }
