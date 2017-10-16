@@ -82,4 +82,38 @@ public class ProfileManager {
             }
         });
     }
+
+    public void getFriendData(final List<Friend> friendList, final FriendListView friendListView) {
+        DatabaseReference user = ref.child("users").child(uid).child("friends");
+        user.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                friendList.clear();
+                for (DataSnapshot friend : dataSnapshot.getChildren()) {
+                    DatabaseReference friendRef = ref.child("users").child(friend.getKey());
+                    friendRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String fn = (String)dataSnapshot.child("fn").getValue();
+                            String ln = (String)dataSnapshot.child("ln").getValue();
+                            friendList.add(new Friend(fn + " " + ln));
+                            friendListView.friendDataChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.d("Database", "profile view data cancelled");
+                        }
+                    });
+
+                }
+                friendListView.friendDataChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Database", "profile view data cancelled");
+            }
+        });
+    }
 }

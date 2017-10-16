@@ -19,13 +19,16 @@ import android.widget.TimePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
-public class CreateEventActivity extends AppCompatActivity {
+public class CreateEventActivity extends AppCompatActivity implements FriendListView {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private FriendsListAdapter friendsListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,14 @@ public class CreateEventActivity extends AppCompatActivity {
                 selectedTime.setText("on: " + month + "/" + dayOfMonth + "/" + year);
             }
         });
+
+        List<Friend> friends = new ArrayList<>(25);
+        friendsListAdapter = new FriendsListAdapter(getApplicationContext(), friends);
+        ListView friendsList = (ListView)findViewById(R.id.inviteList);
+        friendsList.setAdapter(friendsListAdapter);
+
+        ProfileManager manager = new ProfileManager(firebaseUser.getUid());
+        manager.getFriendData(friends, this);
     }
 
     public void navigateToWhat(View v) {
@@ -96,11 +107,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
         handleEventAttributeCategoryChange(EventAttributeCategory.WHO);
         //test populate the list view
-        String[] myStringArray = {"Frank", "Frances", "Fernando"};
-        ArrayAdapter<String> testFriendsAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, myStringArray);
-        ListView friendsList = (ListView) findViewById(R.id.inviteList);
-        friendsList.setAdapter(testFriendsAdapter);
+
 
         Spinner min_people = (Spinner) findViewById(R.id.minPeopleSpinner);
 
@@ -235,5 +242,10 @@ public class CreateEventActivity extends AppCompatActivity {
     public void cancelEventCreation(View v) {
 
         startActivity(new Intent(this, EventListActivity.class));
+    }
+
+    @Override
+    public void friendDataChanged() {
+        friendsListAdapter.notifyDataSetChanged();
     }
 }

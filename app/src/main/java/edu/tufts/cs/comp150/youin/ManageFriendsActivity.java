@@ -22,7 +22,7 @@ public class ManageFriendsActivity extends AppCompatActivity {
 
         friendList = new ArrayList<>();
 
-        friendList.add(new Friend("1","Frances"));
+        friendList.add(new Friend("Frances"));
 
         friendsListAdapter = new FriendsListAdapter(getApplicationContext(), friendList);
     }

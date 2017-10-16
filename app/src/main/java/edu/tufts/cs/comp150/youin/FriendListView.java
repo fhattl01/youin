@@ -5,4 +5,5 @@ package edu.tufts.cs.comp150.youin;
  */
 
 public interface FriendListView {
+    void friendDataChanged();
 }
