@@ -38,12 +38,20 @@
             android:text="View Profile" />
 
         <Button
+            android:id="@+id/viewFriends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewFriends"
+            android:text="View Friends" />
+
+        <Button
             android:id="@+id/logOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="logOut"
             android:text="Log Out "
             android:textColor="#FF0000" />
+
     </LinearLayout>
 
 </RelativeLayout>

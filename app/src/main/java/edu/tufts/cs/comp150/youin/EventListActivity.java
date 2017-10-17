@@ -84,4 +84,8 @@ public class EventListActivity extends AppCompatActivity implements EventListVie
     public void eventViewDataChanged() {
         eAdapter.notifyDataSetChanged();
     }
+
+    public void viewFriends(View v) {
+        startActivity(new Intent(this, ManageFriendsActivity.class));
+    }
 }

@@ -248,4 +248,8 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
     public void friendDataChanged() {
         friendsListAdapter.notifyDataSetChanged();
     }
+
+    public void createEvent() {
+
+    }
 }

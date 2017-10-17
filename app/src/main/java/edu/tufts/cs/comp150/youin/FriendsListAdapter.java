@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,7 +30,6 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Friend friend = getItem(position);
 
         View v = convertView;
 
@@ -37,12 +37,15 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
             v = vi.inflate(R.layout.friends_list_row, null);
-
         }
-        TextView textViewItem = (TextView) v.findViewById(R.id.friendListName);
-        textViewItem.setText(friend.getName());
-        return v;
 
+        Friend friend = getItem(position);
+        TextView textViewItem = (TextView) v.findViewById(R.id.friendListName);
+        CheckBox cb = (CheckBox) convertView.findViewById(R.id.friendCheck);
+        textViewItem.setText(friend.getName());
+        textViewItem.setText(friend.getId());
+
+        return v;
     }
 
 }

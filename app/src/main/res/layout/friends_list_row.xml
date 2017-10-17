@@ -21,8 +21,10 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/friendCheck"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:onClick="inviteFriendsButton"/>
 
                 <TextView
                     android:id="@+id/friendListName"
@@ -30,6 +32,12 @@
                     android:layout_height="wrap_content"
                     android:text="Name of Friend"
                     android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/friendId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
 
             </LinearLayout>
