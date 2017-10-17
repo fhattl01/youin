@@ -8,5 +8,5 @@ import android.media.Image;
 
 public interface ProfileView {
 
-    void setupProfileView(String firstName, String lastName, String userEmail, Image profilePicture);
+    void setupProfileView(UserProfile profile);
 }

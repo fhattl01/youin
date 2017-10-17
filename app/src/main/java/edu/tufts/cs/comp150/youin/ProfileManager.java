@@ -50,12 +50,8 @@ public class ProfileManager {
         user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                firstName = (String)dataSnapshot.child("fn").getValue();
-                lastName = (String)dataSnapshot.child("ln").getValue();
-                email = (String)dataSnapshot.child("email").getValue();
-                profilePicture = null;
-
-                profileView.setupProfileView(firstName, lastName, email, profilePicture);
+                UserProfile profile = dataSnapshot.getValue(UserProfile.class);
+                profileView.setupProfileView(profile);
             }
 
             @Override
@@ -63,6 +59,12 @@ public class ProfileManager {
                 Log.d("Database", "profile view data cancelled");
             }
         });
+    }
+
+    public void createProfile(UserProfile profile) {
+        DatabaseReference profileRef = ref.child("users");
+        profileRef.child(uid).child("firstName").setValue(profile.getFirstName());
+        profileRef.child(uid).child("lastName").setValue(profile.getLastName());
     }
 
     public void getEventData(final List<Event> eventList, final EventListView eventListView) {
@@ -103,14 +105,13 @@ public class ProfileManager {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 friendList.clear();
                 for (DataSnapshot friend : dataSnapshot.getChildren()) {
-                    DatabaseReference friendRef = ref.child("users").child(friend.getKey());
+                    DatabaseReference friendRef = ref.child("users").child(friend.getValue(String.class));
                     friendRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String userId = dataSnapshot.getKey();
-                            String fn = (String)dataSnapshot.child("fn").getValue();
-                            String ln = (String)dataSnapshot.child("ln").getValue();
-                            friendList.add(new Friend(fn + " " + ln, userId));
+                            UserProfile profile = dataSnapshot.getValue(UserProfile.class);
+                            friendList.add(new Friend(profile.getFirstName() + " " + profile.getLastName(), userId));
                             friendListView.friendDataChanged();
                         }
 

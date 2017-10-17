@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".ProfileViewActivity" />
         <activity android:name=".CreateProfileActivity"></activity>
+        <activity android:name=".ManageFriendsActivity"></activity>
     </application>
 
 </manifest>

@@ -47,7 +47,7 @@ public class EventListActivity extends AppCompatActivity implements EventListVie
         }
 
         eAdapter = new EventRecyclerViewAdapter(eventList);
-        RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(eLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(eAdapter);

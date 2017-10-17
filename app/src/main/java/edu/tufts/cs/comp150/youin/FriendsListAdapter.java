@@ -1,6 +1,5 @@
 package edu.tufts.cs.comp150.youin;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,43 +9,45 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Created by franceshughes on 10/15/17.
+ * Created by franceshughes on 10/16/17.
  */
 
 public class FriendsListAdapter extends ArrayAdapter<Friend> {
 
-    private List<Friend> friendList;
+    private ArrayList<Friend> friendList;
     Context mContext;
 
-    public FriendsListAdapter(Context context, List<Friend> friends) {
-        super(context, R.layout.friends_list_row, friends);
-        this.friendList = friends;
+    private LayoutInflater inflater;
+
+    public FriendsListAdapter(ArrayList<Friend> friend, Context context) {
+        super(context, R.layout.friends_list_row, friend);
+        this.friendList = friend;
         this.mContext = context;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Friend friend = this.getItem(position);
 
-
-        View v = convertView;
-
-        if (v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.friends_list_row, null);
+        if (convertView == null) {
+            inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.friends_list_row, null);
         }
 
-        Friend friend = getItem(position);
-        TextView textViewItem = (TextView) v.findViewById(R.id.friendListName);
-        CheckBox cb = (CheckBox) convertView.findViewById(R.id.friendCheck);
-        textViewItem.setText(friend.getName());
-        textViewItem.setText(friend.getId());
+        TextView friendRow = (TextView)convertView.findViewById(R.id.friendListName);
+        if (friend.getName() != null) {
+            friendRow.setText(friend.getName());
+        }
+        TextView friendId = (TextView)convertView.findViewById(R.id.friendId);
+        if (friend.getId() != null) {
+            friendId.setText(friend.getId());
+        }
 
-        return v;
+
+        return convertView;
     }
 
 }
-

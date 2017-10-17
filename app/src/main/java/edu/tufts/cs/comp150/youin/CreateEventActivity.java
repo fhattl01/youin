@@ -86,8 +86,8 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
             }
         });
 
-        List<Friend> friends = new ArrayList<>(25);
-        friendsListAdapter = new FriendsListAdapter(getApplicationContext(), friends);
+        ArrayList<Friend> friends = new ArrayList<>(25);
+        friendsListAdapter = new FriendsListAdapter(friends, getApplicationContext());
         ListView friendsList = (ListView)findViewById(R.id.inviteList);
         friendsList.setAdapter(friendsListAdapter);
 
