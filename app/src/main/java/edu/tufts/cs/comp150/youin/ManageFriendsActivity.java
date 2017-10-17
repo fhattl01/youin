@@ -24,7 +24,6 @@ public class ManageFriendsActivity extends AppCompatActivity implements FriendLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 

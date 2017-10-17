@@ -46,7 +46,6 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             friendId.setText(friend.getId());
         }
 
-
         return convertView;
     }
 
