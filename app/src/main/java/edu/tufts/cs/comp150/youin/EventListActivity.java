@@ -31,18 +31,10 @@ public class EventListActivity extends AppCompatActivity implements EventListVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
 
-
         recyclerView = (RecyclerView) findViewById(R.id.event_recycler_view);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-
-        //Now check if this user is null
-        if (firebaseUser == null) {
-            Intent login = new Intent(this, AuthUIActivity.class);
-            startActivity(login);
-            return;
-        }
 
         eAdapter = new EventRecyclerViewAdapter(eventList);
         RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(this);

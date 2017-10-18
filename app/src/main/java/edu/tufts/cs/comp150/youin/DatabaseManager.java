@@ -1,10 +1,7 @@
 package edu.tufts.cs.comp150.youin;
 
-import android.media.Image;
-import android.util.ArraySet;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
+
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,16 +9,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Frank on 10/12/17.
@@ -29,14 +18,7 @@ import java.util.Set;
 
 public class DatabaseManager {
 
-    private String firstName;
-    private String lastName;
-    private String email;
     private String uid;
-    private Image profilePicture;
-
-    private String[] friendsIds;
-    private String[] groupIds;
     private DatabaseReference ref;
 
 
@@ -50,7 +32,7 @@ public class DatabaseManager {
         user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                UserProfile profile = dataSnapshot.getValue(UserProfile.class);
+                Profile profile = dataSnapshot.getValue(Profile.class);
                 profileView.setupProfileView(profile);
             }
 
@@ -61,10 +43,25 @@ public class DatabaseManager {
         });
     }
 
-    public void createProfile(UserProfile profile) {
+    public void checkForProfileCreation(final AuthUIActivity auth) {
+        DatabaseReference usersRef = ref.child("users").child(uid);
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Profile profile = dataSnapshot.getValue(Profile.class);
+                auth.handleProfileCreation(profile == null);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Database", "profile view data cancelled");
+            }
+        });
+    }
+
+    public void createProfile(Profile profile) {
         DatabaseReference profileRef = ref.child("users");
-        profileRef.child(uid).child("firstName").setValue(profile.getFirstName());
-        profileRef.child(uid).child("lastName").setValue(profile.getLastName());
+        profileRef.child(uid).setValue(profile);
     }
 
     public void getEventData(final List<Event> eventList, final EventListView eventListView) {
@@ -110,7 +107,7 @@ public class DatabaseManager {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String userId = dataSnapshot.getKey();
-                            UserProfile profile = dataSnapshot.getValue(UserProfile.class);
+                            Profile profile = dataSnapshot.getValue(Profile.class);
                             friendList.add(new Friend(profile.getFirstName() + " " + profile.getLastName(), userId));
                             friendListView.friendDataChanged();
                         }

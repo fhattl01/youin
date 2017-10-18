@@ -40,7 +40,7 @@ public class ProfileViewActivity extends AppCompatActivity implements ProfileVie
     }
 
     @Override
-    public void setupProfileView(UserProfile profile) {
+    public void setupProfileView(Profile profile) {
         this.name.setText(profile.getFirstName() + " " + profile.getLastName());
         this.email.setText(profile.getEmail());
     }

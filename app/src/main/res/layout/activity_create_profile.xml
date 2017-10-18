@@ -28,6 +28,14 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="Last Name" />
+
+        <EditText
+            android:id="@+id/enterUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="username" />
         <Button
             android:id="@+id/submitProfile"
             android:layout_width="match_parent"

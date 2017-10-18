@@ -10,9 +10,10 @@ import java.util.List;
  * Created by maggi on 10/16/17.
  */
 
-public class UserProfile {
+public class Profile {
     private String firstName;
     private String lastName;
+    private String username;
     private String email;
     private String imageReference;
 
@@ -20,14 +21,15 @@ public class UserProfile {
     private List<String> groups;
     private List<String> events;
 
-    public UserProfile() {
+    public Profile() {
 
     }
 
-    public UserProfile(String firstName, String lastName, String emailAddress, String imageReference,
-                       List<String> friendIds, List<String> groupIds, List<String> eventIds) {
+    public Profile(String firstName, String lastName, String username, String emailAddress, String imageReference,
+                   List<String> friendIds, List<String> groupIds, List<String> eventIds) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
         email = emailAddress;
         this.imageReference = imageReference;
         friends = friendIds;
@@ -41,6 +43,10 @@ public class UserProfile {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getEmail() {

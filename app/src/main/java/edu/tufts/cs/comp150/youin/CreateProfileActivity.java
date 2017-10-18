@@ -29,12 +29,14 @@ public class CreateProfileActivity extends AppCompatActivity {
     public void createProfile(View v){
         EditText firstName = (EditText)findViewById(R.id.enterFirstName);
         EditText lastName = (EditText)findViewById(R.id.enterLastName);
+        EditText username = (EditText)findViewById(R.id.enterUsername);
         List<String> friends = new ArrayList<>();
         List<String> dummyList = new ArrayList<>();
 
         DatabaseManager manger = new DatabaseManager(firebaseUser.getUid());
-        UserProfile profile = new UserProfile(firstName.getText().toString(), lastName.getText().toString(),
-                                            firebaseUser.getEmail(), "", friends, dummyList, dummyList);
+        Profile profile = new Profile(firstName.getText().toString(), lastName.getText().toString(),
+                                            username.getText().toString() ,firebaseUser.getEmail(),
+                                            "", friends, dummyList, dummyList);
         manger.createProfile(profile);
         startActivity(new Intent(this, EventListActivity.class));
 

@@ -18,7 +18,6 @@ import java.util.Arrays;
 public class AuthUIActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
 
     private Activity activity;
     private final int RC_SIGN_IN = 123;
@@ -31,11 +30,10 @@ public class AuthUIActivity extends AppCompatActivity {
         activity = this;
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
 
 
-        if (firebaseUser != null){
-            startActivity(new Intent(activity, CreateEventActivity.class));
+        if (firebaseAuth.getCurrentUser() != null){
+            startActivity(new Intent(activity, EventListActivity.class));
             return;
         }
 
@@ -57,7 +55,8 @@ public class AuthUIActivity extends AppCompatActivity {
 
             // Successfully signed in
             if (resultCode == RESULT_OK) {
-                startActivity(new Intent(activity, CreateProfileActivity.class));
+                DatabaseManager databaseManager = new DatabaseManager(firebaseAuth.getCurrentUser().getUid());
+                databaseManager.checkForProfileCreation(this);
                 finish();
                 return;
             } else {
@@ -86,5 +85,13 @@ public class AuthUIActivity extends AppCompatActivity {
     private void showToast(String message) {
         //TODO figure out snackbar alerts
         //Snackbar.make(coordinator, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    public void handleProfileCreation(boolean needToCreate) {
+        if (needToCreate) {
+            startActivity(new Intent(this, CreateProfileActivity.class));
+        } else {
+            startActivity(new Intent(this, EventListActivity.class));
+        }
     }
 }
