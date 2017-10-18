@@ -1,7 +1,6 @@
 package edu.tufts.cs.comp150.youin;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +32,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         List<String> friends = new ArrayList<>();
         List<String> dummyList = new ArrayList<>();
 
-        ProfileManager manger = new ProfileManager(firebaseUser.getUid());
+        DatabaseManager manger = new DatabaseManager(firebaseUser.getUid());
         UserProfile profile = new UserProfile(firstName.getText().toString(), lastName.getText().toString(),
                                             firebaseUser.getEmail(), "", friends, dummyList, dummyList);
         manger.createProfile(profile);

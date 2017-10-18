@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -56,7 +54,7 @@ public class EventListActivity extends AppCompatActivity implements EventListVie
     }
 
     private void prepareEventData() {
-        ProfileManager profileManager = new ProfileManager(firebaseUser.getUid());
+        DatabaseManager profileManager = new DatabaseManager(firebaseUser.getUid());
         profileManager.getEventData(eventList, this);
     }
 

@@ -27,7 +27,7 @@ import java.util.Set;
  * Created by Frank on 10/12/17.
  */
 
-public class ProfileManager {
+public class DatabaseManager {
 
     private String firstName;
     private String lastName;
@@ -40,7 +40,7 @@ public class ProfileManager {
     private DatabaseReference ref;
 
 
-    public ProfileManager(String userId) {
+    public DatabaseManager(String userId) {
         ref = FirebaseDatabase.getInstance().getReference();
         uid = userId;
     }

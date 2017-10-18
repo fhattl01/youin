@@ -2,13 +2,11 @@ package edu.tufts.cs.comp150.youin;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +33,7 @@ public class ManageFriendsActivity extends AppCompatActivity implements FriendLi
         friendsListAdapter = new FriendsListAdapter(friends, this);
         friendListView.setAdapter(friendsListAdapter);
 
-        ProfileManager manager = new ProfileManager(firebaseUser.getUid());
+        DatabaseManager manager = new DatabaseManager(firebaseUser.getUid());
         manager.getFriendData(friends, this);
     }
 

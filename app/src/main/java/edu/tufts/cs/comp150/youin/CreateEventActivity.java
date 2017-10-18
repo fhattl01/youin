@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 
 public class CreateEventActivity extends AppCompatActivity implements FriendListView {
@@ -91,7 +90,7 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         ListView friendsList = (ListView)findViewById(R.id.inviteList);
         friendsList.setAdapter(friendsListAdapter);
 
-        ProfileManager manager = new ProfileManager(firebaseUser.getUid());
+        DatabaseManager manager = new DatabaseManager(firebaseUser.getUid());
         manager.getFriendData(friends, this);
     }
 

@@ -1,7 +1,6 @@
 package edu.tufts.cs.comp150.youin;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -31,12 +30,12 @@ public class ProfileViewActivity extends AppCompatActivity implements ProfileVie
         } else {
             name = (TextView)findViewById(R.id.profileName);
             email = (TextView)findViewById(R.id.profileEmail);
-            ProfileManager profile = new ProfileManager(firebaseUser.getUid());
+            DatabaseManager profile = new DatabaseManager(firebaseUser.getUid());
             profile.getProfileViewData(this);
         }
     }
 
-    public void setViewParameters(ProfileManager profile) {
+    public void setViewParameters(DatabaseManager profile) {
         TextView view = (TextView)findViewById(R.id.profileName);
     }
 
