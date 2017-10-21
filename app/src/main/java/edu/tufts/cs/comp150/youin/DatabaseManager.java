@@ -129,6 +129,10 @@ public class DatabaseManager {
         });
     }
 
+    public void searchFriends(String query, final FriendListView friendListView) {
+        friendListView.friendDataChanged();
+    }
+
     public void createEvent(Event e) {
         DatabaseReference eventsRef = ref.child("events");
 

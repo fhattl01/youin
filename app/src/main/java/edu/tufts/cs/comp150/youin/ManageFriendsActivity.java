@@ -2,6 +2,8 @@ package edu.tufts.cs.comp150.youin;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +19,7 @@ public class ManageFriendsActivity extends AppCompatActivity implements FriendLi
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FriendsListAdapter friendsListAdapter;
+    private DatabaseManager manager;
 
 
     @Override
@@ -33,12 +36,19 @@ public class ManageFriendsActivity extends AppCompatActivity implements FriendLi
         friendsListAdapter = new FriendsListAdapter(friends, this);
         friendListView.setAdapter(friendsListAdapter);
 
-        DatabaseManager manager = new DatabaseManager(firebaseUser.getUid());
+        manager = new DatabaseManager(firebaseUser.getUid());
         manager.getFriendData(friends, this);
     }
 
     @Override
     public void friendDataChanged() {
         friendsListAdapter.notifyDataSetChanged();
+    }
+
+    public void submitFriendSearch(View v) {
+        EditText entry = (EditText)findViewById(R.id.friendSearch);
+        String query = entry.getText().toString();
+
+        manager.searchFriends(query, this);
     }
 }
