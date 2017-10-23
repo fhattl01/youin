@@ -6,10 +6,12 @@ import android.widget.CheckBox;
 public class Friend{
     private String friendName;
     private String friendId;
+    private boolean isFriend;
 
-    public Friend(String friendName, String friendId) {//, Date dateOfEvent, Time timeofEvent) {
+    public Friend(String friendName, String friendId, boolean isCurrentFriend) {//, Date dateOfEvent, Time timeofEvent) {
         this.friendName = friendName;
         this.friendId = friendId;
+        isFriend = isCurrentFriend;
     }
 
     public String getName()
@@ -21,6 +23,7 @@ public class Friend{
         return friendId;
     }
 
-
-
+    public boolean isFriend() {
+        return isFriend;
+    }
 }

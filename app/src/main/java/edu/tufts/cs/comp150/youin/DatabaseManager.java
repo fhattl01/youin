@@ -109,7 +109,7 @@ public class DatabaseManager {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String userId = dataSnapshot.getKey();
                             Profile profile = dataSnapshot.getValue(Profile.class);
-                            friendList.add(new Friend(profile.getFirstName() + " " + profile.getLastName(), userId));
+                            friendList.add(new Friend(profile.getFirstName() + " " + profile.getLastName(), userId, true));
                             friendListView.friendDataChanged();
                         }
 
@@ -139,8 +139,9 @@ public class DatabaseManager {
                     Profile profile = user.getValue(Profile.class);
                     Log.d("QUERY", "Found profile: " + profile.getUsername());
                     if (profile.getUsername().equals(query)) {
+                        boolean alreadyFriends = profile.getFriends().contains(uid);
                         friendList.add(new Friend(profile.getUsername(),
-                                profile.getFirstName() + " " + profile.getLastName()));
+                                profile.getFirstName() + " " + profile.getLastName(), alreadyFriends));
                     }
                 }
                 friendListView.friendDataChanged();
