@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by franceshughes on 10/16/17.
@@ -17,12 +18,12 @@ import java.util.ArrayList;
 
 public class FriendsListAdapter extends ArrayAdapter<Friend> {
 
-    private ArrayList<Friend> friendList;
+    private List<Friend> friendList;
     Context mContext;
 
     private LayoutInflater inflater;
 
-    public FriendsListAdapter(ArrayList<Friend> friend, Context context) {
+    public FriendsListAdapter(List<Friend> friend, Context context) {
         super(context, R.layout.friends_list_row, friend);
         this.friendList = friend;
         this.mContext = context;

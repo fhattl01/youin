@@ -2,6 +2,7 @@ package edu.tufts.cs.comp150.youin;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -32,12 +33,12 @@ public class ManageFriendsActivity extends AppCompatActivity implements FriendLi
 
         ListView friendListView = (ListView)findViewById(R.id.manageFriendsList);
 
-        ArrayList<Friend> friends = new ArrayList<>();
-        friendsListAdapter = new FriendsListAdapter(friends, this);
+        friendList = new ArrayList<>();
+        friendsListAdapter = new FriendsListAdapter(friendList, this);
         friendListView.setAdapter(friendsListAdapter);
 
         manager = new DatabaseManager(firebaseUser.getUid());
-        manager.getFriendData(friends, this);
+        manager.getFriendData(friendList, this);
     }
 
     @Override
@@ -48,7 +49,8 @@ public class ManageFriendsActivity extends AppCompatActivity implements FriendLi
     public void submitFriendSearch(View v) {
         EditText entry = (EditText)findViewById(R.id.friendSearch);
         String query = entry.getText().toString();
+        Log.d("QUERY", "Searching for: " + query);
 
-        manager.searchFriends(query, this);
+        manager.searchFriends(query, friendList, this);
     }
 }

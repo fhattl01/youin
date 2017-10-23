@@ -7,6 +7,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -117,7 +118,6 @@ public class DatabaseManager {
                             Log.d("Database", "profile view data cancelled");
                         }
                     });
-
                 }
                 friendListView.friendDataChanged();
             }
@@ -129,8 +129,28 @@ public class DatabaseManager {
         });
     }
 
-    public void searchFriends(String query, final FriendListView friendListView) {
-        friendListView.friendDataChanged();
+    public void searchFriends(final String query, final List<Friend> friendList, final FriendListView friendListView) {
+        Query friends = ref.child("users");
+        friends.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                friendList.clear();
+                for (DataSnapshot user : dataSnapshot.getChildren()) {
+                    Profile profile = user.getValue(Profile.class);
+                    Log.d("QUERY", "Found profile: " + profile.getUsername());
+                    if (profile.getUsername().equals(query)) {
+                        friendList.add(new Friend(profile.getUsername(),
+                                profile.getFirstName() + " " + profile.getLastName()));
+                    }
+                }
+                friendListView.friendDataChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void createEvent(Event e) {
