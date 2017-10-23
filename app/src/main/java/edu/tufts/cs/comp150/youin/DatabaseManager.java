@@ -7,10 +7,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -145,6 +147,50 @@ public class DatabaseManager {
                     }
                 }
                 friendListView.friendDataChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void addFriend(final String friendId) {
+        final DatabaseReference myProfileRef = ref.child("users").child(uid).child("friends");
+        final DatabaseReference friendProfileRef = ref.child("users").child(friendId).child("friends");
+        final GenericTypeIndicator<List<String>> stringList = new GenericTypeIndicator<List<String>>() {};
+
+        myProfileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> friends = dataSnapshot.getValue(stringList);
+                if (friends == null) {
+                    friends = new ArrayList<String>();
+                }
+                if (!friends.contains(friendId)) {
+                    friends.add(friendId);
+                    myProfileRef.setValue(friends);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        friendProfileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> friends = dataSnapshot.getValue(stringList);
+                if (friends == null) {
+                    friends = new ArrayList<String>();
+                }
+
+                if(!friends.contains(uid)) {
+                    friends.add(uid);
+                    friendProfileRef.setValue(friends);
+                }
             }
 
             @Override

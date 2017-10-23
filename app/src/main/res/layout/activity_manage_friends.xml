@@ -34,8 +34,14 @@
                 android:layout_weight="1"
                 android:text="Submit"
                 android:onClick="submitFriendSearch" />
+
         </LinearLayout>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="addFriend"
+            android:onClick="addFriend"/>
         <ListView
             android:id="@+id/manageFriendsList"
             android:layout_width="match_parent"
