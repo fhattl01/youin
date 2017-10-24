@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class FriendsListAdapter extends ArrayAdapter<Friend> {
 
     private ArrayList<Friend> friendList;
-    Context mContext;
+    private Context mContext;
 
     private LayoutInflater inflater;
 
@@ -37,16 +37,15 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             convertView = inflater.inflate(R.layout.friends_list_row, null);
         }
 
-        TextView friendRow = (TextView)convertView.findViewById(R.id.friendListName);
+        TextView friendRow = (TextView)convertView.findViewById(R.id.nameOfFriend);
         if (friend.getName() != null) {
             friendRow.setText(friend.getName());
         }
-        TextView friendId = (TextView)convertView.findViewById(R.id.friendId);
+        TextView friendId = (TextView)convertView.findViewById(R.id.idOfFriend);
         if (friend.getId() != null) {
             friendId.setText(friend.getId());
         }
 
         return convertView;
     }
-
 }
