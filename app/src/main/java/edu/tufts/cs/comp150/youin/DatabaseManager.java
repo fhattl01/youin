@@ -205,14 +205,31 @@ public class DatabaseManager {
 
         DatabaseReference pushedEventRef = eventsRef.push();
         pushedEventRef.setValue(e);
-        String eventId = pushedEventRef.getKey();
+        final String eventId = pushedEventRef.getKey();
 
         List<String> invited = e.getFriendsInvitedIds();
         invited.add(e.getOwner());
+        final GenericTypeIndicator<List<String>> stringList = new GenericTypeIndicator<List<String>>() {};
 
         for (String user : invited) {
-            DatabaseReference userEventsListRef = ref.child("users").child(user).child("events");
-            userEventsListRef.child(eventId).setValue(true);
+            final DatabaseReference userEventsListRef = ref.child("users").child(user).child("events");
+            userEventsListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    List<String> events = dataSnapshot.getValue(stringList);
+                    if (events == null) {
+                        events = new ArrayList<String>();
+                    }
+                    events.add(eventId);
+                    userEventsListRef.setValue(events);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
         }
     }
 }

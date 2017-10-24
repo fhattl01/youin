@@ -7,11 +7,13 @@ public class Friend{
     private String friendName;
     private String friendId;
     private boolean isFriend;
+    private boolean invited;
 
-    public Friend(String friendName, String friendId, boolean isCurrentFriend) {//, Date dateOfEvent, Time timeofEvent) {
+    public Friend(String friendName, String friendId, boolean isCurrentFriend) {
         this.friendName = friendName;
         this.friendId = friendId;
         isFriend = isCurrentFriend;
+        invited = false;
     }
 
     public String getName()
@@ -25,5 +27,13 @@ public class Friend{
 
     public boolean isFriend() {
         return isFriend;
+    }
+
+    public boolean getInvited() {
+        return invited;
+    }
+
+    public void flipInvite() {
+        invited = !invited;
     }
 }

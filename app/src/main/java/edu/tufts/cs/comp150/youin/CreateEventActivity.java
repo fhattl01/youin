@@ -5,9 +5,12 @@ import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -19,15 +22,24 @@ import android.widget.TimePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 
 public class CreateEventActivity extends AppCompatActivity implements FriendListView {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    private FriendsListAdapter friendsListAdapter;
+    private InviteListAdapter inviteListAdapter;
+    private List<Friend> friends;
+    private ListView friendsList;
+    private DatabaseManager manager;
+    private List<String> invitedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +48,7 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        invitedList = new ArrayList<String>();
 
         //Now check if this user is null
         if (firebaseUser == null){
@@ -48,50 +61,33 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         Button whatButton = (Button)findViewById(R.id.createEventWhatButton);
         whatButton.setPaintFlags(whatButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        final TimePicker timePicker = (TimePicker)findViewById(R.id.timePicker);
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+        friends = new ArrayList<>(25);
+        inviteListAdapter = new InviteListAdapter(friends, getApplicationContext());
+        friendsList = (ListView)findViewById(R.id.inviteList);
+        friendsList.setAdapter(inviteListAdapter);
 
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                int hour = hourOfDay;
-                String am_pm;
-
-                if (hour == 0) {
-                    am_pm = "am";
-                    hour = 12;
-                } else if (hour < 12) {
-                    am_pm = "am";
-                    hour = hourOfDay;
-                } else {
-                    am_pm = "pm";
-                    hour = hourOfDay - 12;
-                }
-                //TODO fix time display bugs
-                TextView timeString = (TextView)findViewById(R.id.timeString);
-                timeString.setText("Your event is at: " + hour + ":" + minute + am_pm);
-            }
-
-        });
-
-        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH),
-                        new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                TextView selectedTime = (TextView)findViewById(R.id.dateString);
-                selectedTime.setText("on: " + month + "/" + dayOfMonth + "/" + year);
-            }
-        });
-
-        ArrayList<Friend> friends = new ArrayList<>(25);
-        friendsListAdapter = new FriendsListAdapter(friends, getApplicationContext());
-        ListView friendsList = (ListView)findViewById(R.id.inviteList);
-        friendsList.setAdapter(friendsListAdapter);
-
-        DatabaseManager manager = new DatabaseManager(firebaseUser.getUid());
+        manager = new DatabaseManager(firebaseUser.getUid());
         manager.getFriendData(friends, this);
+        displayFriendList();
+        invitedList.add(firebaseUser.getUid());
+    }
+
+    private void displayFriendList() {
+        friendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("INVITE", "In onclicked");
+                Friend friend = friends.get(i);
+                friend.flipInvite();
+                //friends.set(i, friend);
+                inviteListAdapter.notifyDataSetChanged();
+                if (friend.getInvited()) {
+                    invitedList.add(friend.getId().toString());
+                } else {
+                    invitedList.remove(friend.getId().toString());
+                }
+            }
+        });
     }
 
     public void navigateToWhat(View v) {
@@ -234,8 +230,20 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
     }
 
     public void sendInvite(View view) {
-        TextView feedback = (TextView) findViewById(R.id.feedback);
-        feedback.setText("your Invitation has been sent!");
+        manager = new DatabaseManager(firebaseUser.getUid());
+        TextView eventName = (TextView) findViewById(R.id.eventName);
+        TextView eventDescription = (TextView) findViewById(R.id.eventDescription);
+        TextView eventLocation = (TextView) findViewById(R.id.eventLocation);
+        TimePicker eventStartTime = (TimePicker) findViewById(R.id.timePicker);
+        String eventOwnerId = (String) firebaseUser.getUid();
+
+        Event e = new Event(eventName.getText().toString(), eventDescription.getText().toString(),
+                            eventLocation.getText().toString(), null, null, invitedList, null,
+                            null, 0, eventOwnerId);
+        manager.createEvent(e);
+
+       // TextView feedback = (TextView) findViewById(R.id.feedback);
+       // feedback.setText("your Invitation has been sent!");
     }
 
     public void cancelEventCreation(View v) {
@@ -245,7 +253,20 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
 
     @Override
     public void friendDataChanged() {
-        friendsListAdapter.notifyDataSetChanged();
+        inviteListAdapter.notifyDataSetChanged();
+    }
+
+    public void inviteFriendsButton(View v) {
+        CheckBox checkBox = (CheckBox) v.findViewById(R.id.friendCheck);
+        TextView id = (TextView) v.findViewById(R.id.friendId);
+        if (checkBox.isChecked()) {
+            invitedList.add(id.getText().toString());
+            Log.d("INVITE", invitedList.toString());
+        } else {
+            invitedList.remove(id.getText().toString());
+            Log.d("INVITE", invitedList.toString());
+
+        }
     }
 
     public void createEvent() {
