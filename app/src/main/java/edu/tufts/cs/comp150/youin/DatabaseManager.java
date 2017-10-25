@@ -70,17 +70,25 @@ public class DatabaseManager {
     }
 
     public void getEventData(final List<Event> eventList, final EventListView eventListView) {
+        Log.d("EVENT", "get event data running");
         DatabaseReference user = ref.child("users").child(uid).child("events");
         user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 eventList.clear();
                 for (final DataSnapshot event : dataSnapshot.getChildren()) {
-                    String eventId = event.getKey();
+                    final String eventId = event.getValue(String.class);
+                    Log.d("EVENT", "found event with id: " + eventId);
                     DatabaseReference eventRef = ref.child("events").child(eventId);
-                    eventRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    eventRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            //Remove the event in the list that corresponds to the updated event.
+                            for (Event toRemove : eventList) {
+                                if (toRemove.getEventId().equals(eventId)) {
+                                    eventList.remove(toRemove);
+                                }
+                            }
                             eventList.add(dataSnapshot.getValue(Event.class));
                             eventListView.eventViewDataChanged();
                         }
@@ -245,6 +253,8 @@ public class DatabaseManager {
     }
 
     public void modifyEvent(Event e) {
-        //String eventId = e.getEventId();
+        String eventId = e.getEventId();
+        DatabaseReference eventRef = ref.child("events").child(eventId);
+        eventRef.setValue(e);
     }
 }
