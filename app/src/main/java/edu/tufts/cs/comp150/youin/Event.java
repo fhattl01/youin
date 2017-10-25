@@ -3,6 +3,7 @@ package edu.tufts.cs.comp150.youin;
 import android.widget.TextView;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -93,8 +94,31 @@ public class Event {
     }
 
     public void respondGoing(String uid) {
+        if (friendsInvitedIds == null) {
+            friendsInvitedIds = new ArrayList<>();
+        }
+        if (friendsGoingIds == null) {
+            friendsGoingIds = new ArrayList<>();
+        }
         friendsInvitedIds.remove(uid);
-        friendsGoingIds.add(uid);
+        friendsDeclinedIds.remove(uid);
+        if (!friendsGoingIds.contains(uid)) {
+            friendsGoingIds.add(uid);
+        }
+    }
+
+    public void respondDeclined(String uid) {
+        if (friendsInvitedIds == null) {
+            friendsInvitedIds = new ArrayList<>();
+        }
+        if (friendsDeclinedIds == null) {
+            friendsDeclinedIds = new ArrayList<>();
+        }
+        friendsInvitedIds.remove(uid);
+        friendsGoingIds.remove(uid);
+        if (!friendsDeclinedIds.contains(uid)) {
+            friendsDeclinedIds.add(uid);
+        }
     }
 
     public String getEventId() {
@@ -103,5 +127,21 @@ public class Event {
 
     public void setEventId(String id) {
         eventId = id;
+    }
+
+    public boolean isGoing(String userId) {
+        if (friendsGoingIds == null) {
+            return false;
+        } else {
+            return friendsGoingIds.contains(userId);
+        }
+    }
+
+    public boolean isInvited(String userId) {
+        if (friendsInvitedIds == null) {
+            return false;
+        } else {
+            return friendsInvitedIds.contains(userId);
+        }
     }
 }
