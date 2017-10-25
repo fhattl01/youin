@@ -21,6 +21,7 @@ public class Event {
     private List<String> friendsDeclinedIds;
     private int minPeopleToGo;
     private String ownerId;
+    private String eventId;
 
 
 
@@ -46,6 +47,7 @@ public class Event {
         friendsDeclinedIds = declined;
         minPeopleToGo = minimumPeople;
         ownerId = eventOwnerId;
+        eventId = null;
     }
 
 
@@ -82,7 +84,7 @@ public class Event {
         return friendsDeclinedIds;
     }
 
-    public String getOwner() {
+    public String getOwnerId() {
         return ownerId;
     }
 
@@ -95,4 +97,11 @@ public class Event {
         friendsGoingIds.add(uid);
     }
 
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String id) {
+        eventId = id;
+    }
 }

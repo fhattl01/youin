@@ -38,7 +38,7 @@ public class ManageFriendsActivity extends AppCompatActivity implements FriendLi
         friendListView.setAdapter(friendsListAdapter);
 
         manager = new DatabaseManager(firebaseUser.getUid());
-        manager.getFriendData(friendList, this);
+        //manager.getFriendData(friendList, this);
     }
 
     @Override
