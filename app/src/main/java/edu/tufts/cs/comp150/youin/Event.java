@@ -94,31 +94,39 @@ public class Event {
     }
 
     public void respondGoing(String uid) {
-        if (friendsInvitedIds == null) {
-            friendsInvitedIds = new ArrayList<>();
+        if (friendsInvitedIds != null) {
+            friendsInvitedIds.remove(uid);
         }
-        if (friendsGoingIds == null) {
+        if (friendsGoingIds != null) {
+            if (!friendsGoingIds.contains(uid)) {
+                friendsGoingIds.add(uid);
+            }
+        } else {
             friendsGoingIds = new ArrayList<>();
-        }
-        friendsInvitedIds.remove(uid);
-        friendsDeclinedIds.remove(uid);
-        if (!friendsGoingIds.contains(uid)) {
             friendsGoingIds.add(uid);
         }
+        if (friendsDeclinedIds != null) {
+            friendsDeclinedIds.remove(uid);
+        }
+
     }
 
     public void respondDeclined(String uid) {
-        if (friendsInvitedIds == null) {
-            friendsInvitedIds = new ArrayList<>();
+        if (friendsInvitedIds != null) {
+            friendsInvitedIds.remove(uid);
         }
-        if (friendsDeclinedIds == null) {
+        if (friendsDeclinedIds != null) {
+            if (!friendsDeclinedIds.contains(uid)) {
+                friendsDeclinedIds.add(uid);
+            }
+        } else {
             friendsDeclinedIds = new ArrayList<>();
-        }
-        friendsInvitedIds.remove(uid);
-        friendsGoingIds.remove(uid);
-        if (!friendsDeclinedIds.contains(uid)) {
             friendsDeclinedIds.add(uid);
         }
+        if (friendsGoingIds != null) {
+            friendsGoingIds.remove(uid);
+        }
+
     }
 
     public String getEventId() {
