@@ -36,4 +36,5 @@ public class Friend{
     public void flipInvite() {
         invited = !invited;
     }
+
 }

@@ -53,4 +53,7 @@ public class ManageFriendsActivity extends AppCompatActivity implements FriendLi
 
         manager.searchFriends(query, friendList, this);
     }
+
+
+
 }

@@ -37,11 +37,11 @@
 
         </LinearLayout>
 
-        <Button
+       <!-- <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="addFriend"
-            android:onClick="addFriend"/>
+            android:text="add Friend"
+            android:onClick="addFriend"/>-->
         <ListView
             android:id="@+id/manageFriendsList"
             android:layout_width="match_parent"
