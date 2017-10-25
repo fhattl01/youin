@@ -1,5 +1,6 @@
 package edu.tufts.cs.comp150.youin;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import org.w3c.dom.Text;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,12 +31,13 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
     private FirebaseUser user;
     private String userId;
     private DatabaseManager manager;
-
+    private Context applicationContext;
 
 
     public class EventHolder extends RecyclerView.ViewHolder {
         public TextView name, description;// date, time;
         public Button attending, notAttending;
+        public ListView friendsAttending, friendsNotAttending, friendsInvited;
 
         public EventHolder(View view) {
             super(view);
@@ -44,14 +48,18 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             user = FirebaseAuth.getInstance().getCurrentUser();
             userId = user.getUid();
             manager = new DatabaseManager(userId);
+            friendsAttending = (ListView) view.findViewById(R.id.friendsAttending);
+            friendsNotAttending = (ListView) view.findViewById(R.id.friendsNotAttending);
+            friendsInvited = (ListView) view.findViewById(R.id.friendsInvited);
             // date = (TextView) view.findViewById(R.id.date);
             //time = (TextView) view.findViewById(R.id.time);
         }
     }
 
 
-    public EventRecyclerViewAdapter(List<Event> eventList) {
+    public EventRecyclerViewAdapter(List<Event> eventList, Context applicationContext) {
         this.eventList = eventList;
+        this.applicationContext = applicationContext;
     }
 
     @Override
@@ -68,8 +76,8 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
         Log.d("ATTENDING", "Event Name");
 
         if (event != null) {
-            int backgroundColor = Color.parseColor("#0D47A1");
-            int noDecisionColor = Color.parseColor("#F44336");
+            int backgroundColor = Color.parseColor("#4682B4");
+            int noDecisionColor = Color.parseColor("#FFFFFF");
             holder.name.setText(event.getName());
             holder.description.setText(event.getDescription());
             if (event.isGoing(userId)) {
@@ -102,8 +110,51 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
                     manager.modifyEvent(event);
                 }
             });
-        }
 
+
+            List<String> friendsGoingIds = event.getFriendsGoingIds();
+            List<Friend> friendsGoing = new ArrayList<>();
+            final FriendsListAdapter friendsListAdapterAccepted = new FriendsListAdapter(friendsGoing,
+                    applicationContext);
+            FriendListView goingView = new FriendListView() {
+                @Override
+                public void friendDataChanged() {
+                    friendsListAdapterAccepted.notifyDataSetChanged();
+                }
+            };
+            manager.getEventFriendData(friendsGoingIds, friendsGoing, goingView);
+
+            List<String> friendsNotGoingIds = event.getFriendsDeclinedIds();
+            List<Friend> friendsNotGoing = new ArrayList<>();
+            final FriendsListAdapter friendsListAdapterDeclined = new FriendsListAdapter(friendsNotGoing,
+                    applicationContext);
+            FriendListView notGoingView = new FriendListView() {
+                @Override
+                public void friendDataChanged() {
+                    friendsListAdapterDeclined.notifyDataSetChanged();
+                }
+            };
+            manager.getEventFriendData(friendsNotGoingIds, friendsNotGoing, notGoingView);
+
+            List<String> friendsInvitedIds = event.getFriendsInvitedIds();
+            List<Friend> friendsInvited = new ArrayList<>();
+            final FriendsListAdapter friendsListAdapterInvited = new FriendsListAdapter(friendsInvited,
+                    applicationContext);
+            FriendListView invitedView = new FriendListView() {
+                @Override
+                public void friendDataChanged() {
+                    friendsListAdapterInvited.notifyDataSetChanged();
+                }
+            };
+            manager.getEventFriendData(friendsInvitedIds, friendsInvited, invitedView);
+
+            //FriendsListAdapter friendsListAdapterInvited = new FriendsListAdapter(manager.getFriends(friendsInvited),
+                   // applicationContext);
+
+            holder.friendsAttending.setAdapter(friendsListAdapterAccepted);
+            holder.friendsNotAttending.setAdapter(friendsListAdapterDeclined);
+            holder.friendsInvited.setAdapter(friendsListAdapterInvited);
+        }
     }
 
     @Override

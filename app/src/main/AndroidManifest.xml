@@ -16,11 +16,12 @@
         <activity android:name=".AuthUIActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EventListActivity" />
+        <activity
+            android:name=".EventListActivity"
+            android:label="Your Events"/>
         <activity android:name=".ProfileViewActivity" />
         <activity android:name=".CreateProfileActivity"></activity>
         <activity android:name=".ManageFriendsActivity"></activity>

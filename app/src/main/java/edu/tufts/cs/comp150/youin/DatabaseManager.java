@@ -122,7 +122,7 @@ public class DatabaseManager {
                             String userId = dataSnapshot.getKey();
                             Log.d("SEARCH", "Bad Method UID: " + userId);
                             Profile profile = dataSnapshot.getValue(Profile.class);
-                            friendList.add(new Friend(profile.getFirstName() + " " + profile.getLastName(), userId, true));
+                            friendList.add(new Friend(profile.getFirstName() + " " + profile.getLastName(), userId, profile.getUsername(), true));
                             friendListView.friendDataChanged();
                         }
 
@@ -159,7 +159,7 @@ public class DatabaseManager {
                             alreadyFriends = profile.getFriends().contains(uid);
                         }
                         friendList.add(new Friend(profile.getFirstName() + " " + profile.getLastName(),
-                                                  friendId, alreadyFriends));
+                                                  friendId, profile.getUsername(), alreadyFriends));
                     }
                 }
                 friendListView.friendDataChanged();
@@ -256,5 +256,11 @@ public class DatabaseManager {
         String eventId = e.getEventId();
         DatabaseReference eventRef = ref.child("events").child(eventId);
         eventRef.setValue(e);
+    }
+
+    public void getEventFriendData(List<String> friendIdList, List<Friend> friendList, FriendListView listView) {
+        friendList.clear();
+        friendList.add(new Friend("Joe", "friendId", "username", true));
+        listView.friendDataChanged();
     }
 }
