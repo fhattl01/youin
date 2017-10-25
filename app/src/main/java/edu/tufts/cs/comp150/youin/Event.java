@@ -46,7 +46,6 @@ public class Event {
         friendsDeclinedIds = declined;
         minPeopleToGo = minimumPeople;
         ownerId = eventOwnerId;
-
     }
 
 
@@ -90,4 +89,10 @@ public class Event {
     public int getMinPeopleToGo() {
         return minPeopleToGo;
     }
+
+    public void respondGoing(String uid) {
+        friendsInvitedIds.remove(uid);
+        friendsGoingIds.add(uid);
+    }
+
 }

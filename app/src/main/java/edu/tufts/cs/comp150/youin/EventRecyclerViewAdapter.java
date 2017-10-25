@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -16,13 +18,17 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
 
     private List<Event> eventList;
 
+
     public class EventHolder extends RecyclerView.ViewHolder {
         public TextView name, description;// date, time;
+        public CheckBox attending, notAttending;
 
         public EventHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.eventListName);
             description = (TextView) view.findViewById(R.id.eventListDescription);
+            attending = (CheckBox) view.findViewById(R.id.attendingButton);
+            notAttending = (CheckBox) view.findViewById(R.id.notAttendingButton);
             // date = (TextView) view.findViewById(R.id.date);
             //time = (TextView) view.findViewById(R.id.time);
         }
@@ -42,9 +48,19 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
     }
 
     @Override
-    public void onBindViewHolder(EventHolder holder, int position) {
-
+    public void onBindViewHolder(final EventHolder holder, int position) {
         Event event = eventList.get(position);
+
+        holder.notAttending.setOnClickListener(null);
+        holder.attending.setOnClickListener(null);
+
+        holder.attending.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                holder.attending.setSelected(true);
+            }
+        });
+
         if (event != null) {
             holder.name.setText(event.getName());
             holder.description.setText(event.getDescription());
