@@ -1,6 +1,8 @@
 package edu.tufts.cs.comp150.youin;
 
 import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,13 +35,26 @@ public class CreateProfileActivity extends AppCompatActivity {
         List<String> friends = new ArrayList<>();
         List<String> dummyList = new ArrayList<>();
 
-        DatabaseManager manger = new DatabaseManager(firebaseUser.getUid());
-        Profile profile = new Profile(firstName.getText().toString(), lastName.getText().toString(),
-                                            username.getText().toString() ,firebaseUser.getEmail(),
-                                            "", friends, dummyList, dummyList);
-        manger.createProfile(profile);
-        startActivity(new Intent(this, EventListActivity.class));
+        if (firstName.getText().toString().equals("")) {
+            showToast("Please enter a first name");
+        } else if (lastName.getText().toString().equals("")) {
+            showToast("Please enter a last name");
+        } else if (username.getText().toString().equals("")) {
+            showToast("Please enter a username");
+        } else {
+            DatabaseManager manger = new DatabaseManager(firebaseUser.getUid());
+            Profile profile = new Profile(firstName.getText().toString(), lastName.getText().toString(),
+                    username.getText().toString(), firebaseUser.getEmail(),
+                    "", friends, dummyList, dummyList);
+            manger.createProfile(profile);
+            startActivity(new Intent(this, EventListActivity.class));
+        }
 
+    }
 
+    private void showToast(String message) {
+        //TODO figure out snackbar alerts
+        CoordinatorLayout layout = findViewById(R.id.coordinatorLayout);
+        Snackbar.make(layout, message, Snackbar.LENGTH_LONG).show();
     }
 }

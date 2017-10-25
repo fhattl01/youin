@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".CreateEventActivity"
-            android:label="@string/app_name"
+            android:label="Create an Event"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme" />
         <activity android:name=".AuthUIActivity">
             <intent-filter>
@@ -21,8 +22,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".EventListActivity" />
-        <activity android:name=".ProfileViewActivity" />
-        <activity android:name=".CreateProfileActivity"></activity>
+        <activity
+            android:name=".ProfileViewActivity"
+            android:label="Your Profile"/>
+        <activity
+            android:name=".CreateProfileActivity"
+            android:label="Create Your Profile"
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".ManageFriendsActivity"></activity>
     </application>
 

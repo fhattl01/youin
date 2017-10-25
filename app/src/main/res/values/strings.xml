@@ -3,6 +3,10 @@
     <string name="toggleToDatePicker">Select a Date</string>
     <string name="toggleToTimePicker">Select a Time</string>
     <string name="createEvent">Create Event</string>
+    <string name="createProfile">Create Profile</string>
+    <string name="noFirstName">no_first_name</string>
+    <string name="noLastName">no_last_name</string>
+    <string name="noUsername">no_username</string>
 
     <string-array name="min_people_amount">
         <item>1</item>

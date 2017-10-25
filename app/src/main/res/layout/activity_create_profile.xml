@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:showIn="@layout/activity_create_profile">
+    tools:context=".CreateProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:orientation="vertical"
         android:weightSum="1">
-
 
         <EditText
             android:id="@+id/enterFirstName"
@@ -19,6 +20,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text=""
             android:hint="First Name" />
 
         <EditText
@@ -27,6 +29,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text=""
             android:hint="Last Name" />
 
         <EditText
@@ -35,14 +38,24 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text=""
             android:hint="username" />
-        <Button
-            android:id="@+id/submitProfile"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Submit"
-            android:onClick="createProfile"/>
-
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:weightSum="1">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/submitProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="createProfile"
+                android:text="Submit"/>
+        </LinearLayout>
     </LinearLayout>
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

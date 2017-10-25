@@ -13,6 +13,7 @@ public class ProfileViewActivity extends AppCompatActivity implements ProfileVie
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private TextView name;
+    private TextView username;
     private TextView email;
 
     @Override
@@ -29,6 +30,7 @@ public class ProfileViewActivity extends AppCompatActivity implements ProfileVie
             startActivity(login);
         } else {
             name = (TextView)findViewById(R.id.profileName);
+            username = (TextView)findViewById(R.id.profileUsername);
             email = (TextView)findViewById(R.id.profileEmail);
             DatabaseManager profile = new DatabaseManager(firebaseUser.getUid());
             profile.getProfileViewData(this);
@@ -42,6 +44,7 @@ public class ProfileViewActivity extends AppCompatActivity implements ProfileVie
     @Override
     public void setupProfileView(Profile profile) {
         this.name.setText(profile.getFirstName() + " " + profile.getLastName());
+        this.username.setText(profile.getUsername());
         this.email.setText(profile.getEmail());
     }
 }
