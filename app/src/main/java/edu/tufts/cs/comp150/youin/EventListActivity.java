@@ -36,7 +36,7 @@ public class EventListActivity extends AppCompatActivity implements EventListVie
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        eAdapter = new EventRecyclerViewAdapter(eventList);
+        eAdapter = new EventRecyclerViewAdapter(eventList, getApplicationContext());
         RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(eLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

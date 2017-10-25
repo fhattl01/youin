@@ -32,6 +32,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
     private static class ViewHolder {
         TextView friendName;
         TextView friendId;
+        TextView friendUsername;
         Button addFriend;
     }
 
@@ -57,6 +58,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             viewHolder.friendName = (TextView) convertView.findViewById(R.id.nameOfFriend);
             viewHolder.friendId = (TextView) convertView.findViewById(R.id.idOfFriend);
             viewHolder.addFriend = (Button) convertView.findViewById(R.id.addFriendButton);
+            viewHolder.friendUsername = (TextView) convertView.findViewById(R.id.usernameOfFriend);
 
             result = convertView;
             convertView.setTag(viewHolder);
@@ -72,6 +74,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
 
             viewHolder.friendName.setText(friend.getName());
             viewHolder.friendId.setText(friend.getId());
+            viewHolder.friendUsername.setText(friend.getUsername());
             // Log.d("INVITE", "Friend List: " + friend.getName() + ": " + friend.getInvited());
             if (friend.isFriend()) {
                 viewHolder.addFriend.setVisibility(View.GONE);

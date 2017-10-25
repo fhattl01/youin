@@ -17,11 +17,9 @@
         <activity android:name=".AuthUIActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EventListActivity" />
         <activity
             android:name=".ProfileViewActivity"
             android:label="Your Profile"/>
@@ -29,6 +27,9 @@
             android:name=".CreateProfileActivity"
             android:label="Create Your Profile"
             android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".EventListActivity"
+            android:label="Your Events"/>
         <activity android:name=".ManageFriendsActivity"></activity>
     </application>
 

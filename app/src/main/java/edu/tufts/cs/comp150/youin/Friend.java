@@ -8,11 +8,13 @@ public class Friend{
     private String friendId;
     private boolean isFriend;
     private boolean invited;
+    private String username;
 
-    public Friend(String friendName, String friendId, boolean isCurrentFriend) {
+    public Friend(String friendName, String friendId, String username, boolean isCurrentFriend) {
         this.friendName = friendName;
         this.friendId = friendId;
         isFriend = isCurrentFriend;
+        this.username = username;
         invited = false;
     }
 
@@ -37,4 +39,5 @@ public class Friend{
         invited = !invited;
     }
 
+    public String getUsername() { return username; }
 }
