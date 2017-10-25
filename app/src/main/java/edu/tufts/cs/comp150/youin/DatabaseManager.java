@@ -13,7 +13,9 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Frank on 10/12/17.
@@ -110,6 +112,7 @@ public class DatabaseManager {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String userId = dataSnapshot.getKey();
+                            Log.d("SEARCH", "Bad Method UID: " + userId);
                             Profile profile = dataSnapshot.getValue(Profile.class);
                             friendList.add(new Friend(profile.getFirstName() + " " + profile.getLastName(), userId, true));
                             friendListView.friendDataChanged();
@@ -138,12 +141,17 @@ public class DatabaseManager {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 friendList.clear();
                 for (DataSnapshot user : dataSnapshot.getChildren()) {
+                    Log.d("SEARCH", user.toString());
+                    String friendId = user.getKey();
                     Profile profile = user.getValue(Profile.class);
                     Log.d("QUERY", "Found profile: " + profile.getUsername());
-                    if (profile.getUsername().equals(query)) {
-                        boolean alreadyFriends = profile.getFriends().contains(uid);
-                        friendList.add(new Friend(profile.getUsername(),
-                                profile.getFirstName() + " " + profile.getLastName(), alreadyFriends));
+                    if (profile.getUsername().equals(query) && !uid.equals(friendId)) {
+                        boolean alreadyFriends = false;
+                        if (profile.getFriends() != null) {
+                            alreadyFriends = profile.getFriends().contains(uid);
+                        }
+                        friendList.add(new Friend(profile.getFirstName() + " " + profile.getLastName(),
+                                                  friendId, alreadyFriends));
                     }
                 }
                 friendListView.friendDataChanged();
@@ -157,6 +165,7 @@ public class DatabaseManager {
     }
 
     public void addFriend(final String friendId) {
+        Log.d("ADD", friendId);
         final DatabaseReference myProfileRef = ref.child("users").child(uid).child("friends");
         final DatabaseReference friendProfileRef = ref.child("users").child(friendId).child("friends");
         final GenericTypeIndicator<List<String>> stringList = new GenericTypeIndicator<List<String>>() {};
@@ -204,11 +213,13 @@ public class DatabaseManager {
         DatabaseReference eventsRef = ref.child("events");
 
         DatabaseReference pushedEventRef = eventsRef.push();
-        pushedEventRef.setValue(e);
         final String eventId = pushedEventRef.getKey();
+        e.setEventId(eventId);
+        pushedEventRef.setValue(e);
+
 
         List<String> invited = e.getFriendsInvitedIds();
-        invited.add(e.getOwner());
+        invited.add(e.getOwnerId());
         final GenericTypeIndicator<List<String>> stringList = new GenericTypeIndicator<List<String>>() {};
 
         for (String user : invited) {
@@ -231,5 +242,9 @@ public class DatabaseManager {
             });
 
         }
+    }
+
+    public void modifyEvent(Event e) {
+        //String eventId = e.getEventId();
     }
 }
