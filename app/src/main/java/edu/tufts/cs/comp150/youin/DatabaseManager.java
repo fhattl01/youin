@@ -258,9 +258,27 @@ public class DatabaseManager {
         eventRef.setValue(e);
     }
 
-    public void getEventFriendData(List<String> friendIdList, List<Friend> friendList, FriendListView listView) {
-        friendList.clear();
-        friendList.add(new Friend("Joe", "friendId", "username", true));
-        listView.friendDataChanged();
+    public void getEventFriendData(List<String> friendIdList, final List<Friend> friendList, final FriendListView listView) {
+        if (friendIdList != null) {
+            for (String friendId : friendIdList) {
+                DatabaseReference friendRef = ref.child("users").child(friendId);
+                friendRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String id = dataSnapshot.getKey();
+                        Profile friendProfile = dataSnapshot.getValue(Profile.class);
+                        Friend f = new Friend(friendProfile.getFirstName() + " " + friendProfile.getLastName(),
+                                id, friendProfile.getUsername(), true);
+                        friendList.add(f);
+                        listView.friendDataChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }
     }
 }
