@@ -42,6 +42,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
         public ListView friendsAttending, friendsNotAttending, friendsInvited;
         public TextView timeOfEvent;
         public TextView dateOfEvent;
+        public TextView minPeople;
 
 
         public EventHolder(View view) {
@@ -58,6 +59,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             friendsInvited = (ListView) view.findViewById(R.id.friendsInvited);
             timeOfEvent = (TextView) view.findViewById(R.id.timeOfEvent);
             dateOfEvent = (TextView) view.findViewById(R.id.dateOfEvent);
+            minPeople = (TextView) view.findViewById(R.id.minPeople);
         }
     }
 
@@ -85,6 +87,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             int noDecisionColor = Color.parseColor("#FFFFFF");
             holder.name.setText(event.getName());
             holder.description.setText(event.getDescription());
+            holder.minPeople.setText(event.getMinPeopleToGo());
             Calendar c = Calendar.getInstance();
 
             c.setTimeInMillis(event.getStartTime());
