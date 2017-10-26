@@ -102,6 +102,8 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                 timeCalendar.set(Calendar.HOUR_OF_DAY, i);
                 timeCalendar.set(Calendar.MINUTE, i1);
+                SimpleDateFormat stz = new SimpleDateFormat("h:mm a");
+                String time = stz.format(timeCalendar.getTime());
             }
         };
 
@@ -119,8 +121,9 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-
-                                pickTime.setText(hourOfDay + ":" + minute);
+                                SimpleDateFormat stz = new SimpleDateFormat("h:mm a");
+                                String time = stz.format(timeCalendar.getTime());
+                                pickTime.setText(time);
                                 hour = hourOfDay;
                                 eventMinute = minute;
                                 eventStartTime.set(mYear, mMonth, mDay, hour, eventMinute);
@@ -165,7 +168,7 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
                                 if (dayOfMonth < currentDay && year == currentYear && monthOfYear == currentMonth)
                                     view.updateDate(currentYear,currentMonth,currentDay);
 
-                                dateTextView.setText((monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
+                                pickDate.setText((monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
                                 mYear = year;
                                 mMonth = monthOfYear;
                                 mDay = dayOfMonth;

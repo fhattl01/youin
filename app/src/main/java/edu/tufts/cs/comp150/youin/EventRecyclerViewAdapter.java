@@ -38,6 +38,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
 
 
     public class EventHolder extends RecyclerView.ViewHolder {
+        public View cardView;
         public TextView name, description;
         public Button attending, notAttending;
         public ListView friendsAttending, friendsNotAttending, friendsInvited;
@@ -48,6 +49,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
 
         public EventHolder(View view) {
             super(view);
+            cardView = view.findViewById(R.id.eventView);
             name = (TextView) view.findViewById(R.id.eventListName);
             description = (TextView) view.findViewById(R.id.eventListDescription);
             attending = (Button) view.findViewById(R.id.attendingButton);
@@ -83,9 +85,10 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
         final Event event = eventList.get(position);
         Log.d("ATTENDING", "Event Name");
 
+
         if (event != null) {
             int backgroundColor = Color.parseColor("#3a65c9");
-            int noDecisionColor = Color.parseColor("#FFFFFF");
+            int noDecisionColor;
             holder.name.setText(event.getName());
             holder.description.setText(event.getDescription());
             String minPeopleText = "This event has enough people!";
@@ -107,6 +110,16 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             }
             holder.minPeople.setText(minPeopleText);
             Calendar c = Calendar.getInstance();
+
+            if (position % 2 == 0) {
+                Log.d("COLOR", "Color should be grey");
+                holder.cardView.setBackgroundColor(Color.parseColor("#F5F5F5"));
+                noDecisionColor = Color.parseColor("#F5F5F5");
+            }else {
+                Log.d("COLOR", "Color should be white");
+                holder.cardView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                noDecisionColor = Color.parseColor("#FFFFFF");
+            }
 
             c.setTimeInMillis(event.getStartTime());
             String dateFormat = "MM/dd/yyyy";

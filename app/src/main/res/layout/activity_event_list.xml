@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:background="@color/grey">
 
 
         <LinearLayout
@@ -53,7 +54,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:scrollbars="vertical"
-            android:paddingBottom="@dimen/cardview_default_elevation"/>
+            android:padding="3dp"/>
         <Button
 
             android:id="@+id/createEventButton"
