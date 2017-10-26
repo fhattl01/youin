@@ -37,7 +37,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
 
 
     public class EventHolder extends RecyclerView.ViewHolder {
-        public TextView name, description;// date, time;
+        public TextView name, description;
         public Button attending, notAttending;
         public ListView friendsAttending, friendsNotAttending, friendsInvited;
         public TextView timeOfEvent;
@@ -58,8 +58,6 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             friendsInvited = (ListView) view.findViewById(R.id.friendsInvited);
             timeOfEvent = (TextView) view.findViewById(R.id.timeOfEvent);
             dateOfEvent = (TextView) view.findViewById(R.id.dateOfEvent);
-            // date = (TextView) view.findViewById(R.id.date);
-            //time = (TextView) view.findViewById(R.id.time);
         }
     }
 
@@ -111,8 +109,6 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             holder.attending.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("ATTENDING", "User ID: " + user.getUid());
-                    //DatabaseManager manager = new DatabaseManager(user.getUid());.
                     event.respondGoing(user.getUid());
                     manager.modifyEvent(event);
                 }
@@ -121,8 +117,6 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             holder.notAttending.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("ATTENDING", "User ID: " + user.getUid());
-                    //DatabaseManager manager = new DatabaseManager(user.getUid());.
                     event.respondDeclined(user.getUid());
                     manager.modifyEvent(event);
                 }
@@ -165,13 +159,9 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             };
             manager.getEventFriendData(friendsInvitedIds, friendsInvited, invitedView);
 
-            //FriendsListAdapter friendsListAdapterInvited = new FriendsListAdapter(manager.getFriends(friendsInvited),
-                   // applicationContext);
-
             holder.friendsAttending.setAdapter(friendsListAdapterAccepted);
             holder.friendsNotAttending.setAdapter(friendsListAdapterDeclined);
             holder.friendsInvited.setAdapter(friendsListAdapterInvited);
-
 
         }
     }

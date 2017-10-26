@@ -35,12 +35,21 @@
                     android:textSize="24sp"
                     android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/eventListDescription"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Description of Event"/>
-
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Description: "
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/eventListDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Description of Event"/>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,18 +138,19 @@
                     android:id="@+id/friendsAttending"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"></ListView>
+                    android:layout_weight="1"
+                    android:layout_marginBottom="80dp"></ListView>
 
                 <ListView
                     android:id="@+id/friendsNotAttending"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:layout_weight="1"></ListView>
 
                 <ListView
                     android:id="@+id/friendsInvited"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:layout_weight="1"></ListView>
                 </LinearLayout>
 
