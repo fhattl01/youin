@@ -8,6 +8,7 @@
     tools:context="edu.tufts.cs.comp150.youin.CreateEventActivity">
 
     <LinearLayout
+        android:id="@+id/topLevelEventCreation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="1"
@@ -21,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/createEventTitle"
@@ -44,50 +46,36 @@
             android:layout_height="wrap_content"
             android:weightSum="4"
             android:id="@+id/createEventBar"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone">
 
             <Button
-                android:id="@+id/createEventWhatButton"
+                android:id="@+id/createEventInformationButton"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pager_image"
-                android:text="What"
-                android:onClick="navigateToWhat"/>
+                android:text="Event Information"
+                android:onClick="navigateToEventInformation"/>
 
             <Button
-                android:id="@+id/createEventWhenButton"
+                android:id="@+id/createEventAddFriendsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="When"
-                android:onClick="navigateToWhen"
-                />
-            <Button
-                android:id="@+id/createEventWhoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Who"
-                android:onClick="navigateToWho"/>
-            <Button
-                android:id="@+id/createEventWhereButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Where"
-                android:onClick="navigateToWhere"/>
+                android:text="Add Friends"
+                android:onClick="navigateToAddFriends"/>
 
         </LinearLayout>
 
         <android.support.v7.widget.CardView
-            android:id="@+id/whatView"
+            android:id="@+id/eventInformationCard"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
-            android:visibility="gone">
+            android:visibility="visible">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -111,162 +99,163 @@
                     android:inputType="text"
                     android:hint="Event Description"
                     android:text=""/>
-                <TextView
-                    android:id="@+id/time"
+                <EditText
+                    android:id="@+id/eventLocation"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <Button
-                    android:id="@+id/pickTime"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="Location Name"
+                    android:text=""/>
+
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pick a Time"
-                    android:onClick="showTimePickerDialog"/>
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <Button
-                    android:id="@+id/pickDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pick a Date"
-                    android:onClick="showDatePickerDialog"/>
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:weightSum="2"
+                    android:visibility="visible">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/time"
+                            android:text="Select Time"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"/>
+                        <Button
+                            android:id="@+id/pickTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pick a Time"
+                            android:onClick="showTimePickerDialog"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/date"
+                            android:text="Select Date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:visibility="visible"/>
+
+                        <Button
+                            android:id="@+id/pickDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pick a Date"
+                            android:onClick="showDatePickerDialog"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:id="@+id/whenView"
+            android:id="@+id/addFriendsCard"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
             android:visibility="gone">
-
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:weightSum="1"
-                    android:orientation="vertical">
-
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
                     <Button
-                        android:id="@+id/whenSelectorToggle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/toggleToDatePicker"
-                        android:onClick="toggleWhenSelector"/>
-
-                    <TimePicker
-                        android:id="@+id/timePicker"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:visibility="visible"
-                        android:timePickerMode="clock"/>
-
-                    <DatePicker
-                        android:id="@+id/datePicker"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:calendarViewShown="true"
-                        android:visibility="gone"/>
-
-
-                </LinearLayout>
-            </ScrollView>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/whoView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp"
-            android:visibility="visible">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <Button
-                            android:id="@+id/friends"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Friends" />
-                        <Button
-                            android:id="@+id/groups"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Groups" />
-                    </LinearLayout>
-
-                    <ListView
-                        android:id="@+id/inviteList"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="Set Minimum Amount of People:"
-                            android:layout_weight="6"/>
-
-                        <Spinner
-                            android:id="@+id/minPeopleSpinner"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"/>
-                    </LinearLayout>
-
-
-                </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/whereView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp"
-            android:visibility="gone">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <EditText
-                        android:id="@+id/eventLocation"
+                        android:id="@+id/friends"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:hint="Location Name"
-                        android:text=""/>
+                        android:layout_weight="1"
+                        android:text="Friends" />
+                    <Button
+                        android:id="@+id/groups"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Groups" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
                     <TextView
-                        android:id="@+id/feedback"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text=""
-                        tools:layout_editor_absoluteX="16dp"
-                        tools:layout_editor_absoluteY="286dp"/>
+                        android:gravity="left"
+                        android:text="Minimum Number of People"
+                        android:textSize="24sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left">
+                        <Button
+                            android:id="@+id/minPeopleMinus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:onClick="decrementMinPeople"/>
+
+                        <TextView
+                            android:id="@+id/minPeopleNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:gravity="center_vertical"
+                            android:textSize="30sp" />
+
+                        <Button
+                            android:id="@+id/minPeoplePlus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+"
+                            android:onClick="incrementMinPeople"/>
+                    </LinearLayout>
+
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Friends:"
+                    android:textSize="24sp" />
+
+                <ListView
+                    android:id="@+id/inviteList"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+
+
+
+            </LinearLayout>
         </android.support.v7.widget.CardView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -286,7 +275,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Next"
-                android:onClick="navigateToWhen"
+                android:onClick="navigateToAddFriends"
                 />
             <Button
                 android:id="@+id/sendInvite"

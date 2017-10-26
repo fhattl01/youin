@@ -5,8 +5,6 @@ package edu.tufts.cs.comp150.youin;
  */
 
 public enum EventAttributeCategory {
-    WHAT,
-    WHEN,
-    WHO,
-    WHERE;
+    INFORMATION,
+    ADD_FRIENDS
 }

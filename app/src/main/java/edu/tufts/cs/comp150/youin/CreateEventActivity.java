@@ -14,7 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+
 import android.widget.Spinner;
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
@@ -29,7 +31,6 @@ import org.w3c.dom.Text;
 import java.lang.reflect.Array;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -70,10 +71,10 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
             startActivity(login);
         }
 
-        CardView what = (CardView)findViewById(R.id.whatView);
-        what.setVisibility(View.VISIBLE);
-        Button whatButton = (Button)findViewById(R.id.createEventWhatButton);
-        whatButton.setPaintFlags(whatButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        CardView eventInformation = (CardView)findViewById(R.id.eventInformationCard);
+        eventInformation.setVisibility(View.VISIBLE);
+        Button infoButton = (Button)findViewById(R.id.createEventInformationButton);
+        infoButton.setPaintFlags(infoButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         friends = new ArrayList<>(25);
         inviteListAdapter = new InviteListAdapter(friends, getApplicationContext());
@@ -193,142 +194,66 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         });
     }
 
-    public void navigateToWhat(View v) {
-        handleEventAttributeCategoryChange(EventAttributeCategory.WHAT);
+    public void navigateToEventInformation(View v) {
+        handleEventAttributeCategoryChange(EventAttributeCategory.INFORMATION);
+        TextView eventName = (TextView)findViewById(R.id.eventName);
+        eventName.requestFocus();
     }
 
-    public void navigateToWhen(View v) {
-        handleEventAttributeCategoryChange(EventAttributeCategory.WHEN);
+    public void navigateToAddFriends(View v) {
+
+        handleEventAttributeCategoryChange(EventAttributeCategory.ADD_FRIENDS);
+        LinearLayout myLayout = (LinearLayout)findViewById(R.id.topLevelEventCreation);
+        myLayout.requestFocus();
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
-
-    public void navigateToWho(View v) {
-
-        handleEventAttributeCategoryChange(EventAttributeCategory.WHO);
-        //test populate the list view
-
-
-        Spinner min_people = (Spinner) findViewById(R.id.minPeopleSpinner);
-
-        ArrayAdapter<CharSequence> people = ArrayAdapter.createFromResource(
-                this,
-                R.array.min_people_amount,
-                android.R.layout.simple_spinner_item);
-
-        people.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        min_people.setAdapter(people);
-    }
-
-    public void navigateToWhere (View v) {
-        handleEventAttributeCategoryChange(EventAttributeCategory.WHERE);
-    }
-
 
     private void handleEventAttributeCategoryChange(EventAttributeCategory changeTo) {
-        Button what = (Button)findViewById(R.id.createEventWhatButton);
-        Button when = (Button)findViewById(R.id.createEventWhenButton);
-        Button who = (Button)findViewById(R.id.createEventWhoButton);
-        Button where = (Button)findViewById(R.id.createEventWhereButton);
+        Button informationButton = (Button)findViewById(R.id.createEventInformationButton);
+        Button addFriendsButton = (Button)findViewById(R.id.createEventAddFriendsButton);
 
-        what.setPaintFlags(what.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
-        when.setPaintFlags(when.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
-        who.setPaintFlags(who.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
-        where.setPaintFlags(where.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
+        informationButton.setPaintFlags(informationButton.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
+        addFriendsButton.setPaintFlags(addFriendsButton.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
 
-        CardView whatCard = (CardView)findViewById(R.id.whatView);
-        CardView whenCard = (CardView)findViewById(R.id.whenView);
-        CardView whoCard = (CardView)findViewById(R.id.whoView);
-        CardView whereCard = (CardView)findViewById(R.id.whereView);
-        whatCard.setVisibility(View.GONE);
-        whenCard.setVisibility(View.GONE);
-        whoCard.setVisibility(View.GONE);
-        whereCard.setVisibility(View.GONE);
+        CardView infoCard = (CardView)findViewById(R.id.eventInformationCard);
+        CardView addFriendsCard = (CardView)findViewById(R.id.addFriendsCard);
+        infoCard.setVisibility(View.GONE);
+        addFriendsCard.setVisibility(View.GONE);
 
         Button backButton = (Button)findViewById(R.id.backButton);
         Button nextButton = (Button)findViewById(R.id.nextButton);
         Button sendInvite = (Button)findViewById(R.id.sendInvite);
 
         switch (changeTo) {
-            case WHAT:
-                what.setPaintFlags(what.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                whatCard.setVisibility(View.VISIBLE);
+            case INFORMATION:
+                informationButton.setPaintFlags(informationButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                infoCard.setVisibility(View.VISIBLE);
                 backButton.setVisibility(View.GONE);
                 sendInvite.setVisibility(View.GONE);
                 nextButton.setVisibility(View.VISIBLE);
                 nextButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        navigateToWhen(v);
+                        navigateToAddFriends(v);
                     }
                 });
                 break;
-            case WHEN:
-                when.setPaintFlags(when.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                whenCard.setVisibility(View.VISIBLE);
-                InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+            case ADD_FRIENDS:
+                addFriendsButton.setPaintFlags(addFriendsButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                addFriendsCard.setVisibility(View.VISIBLE);
 
                 backButton.setVisibility(View.VISIBLE);
                 backButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        navigateToWhat(v);
-                    }
-                });
-                sendInvite.setVisibility(View.GONE);
-                nextButton.setVisibility(View.VISIBLE);
-                nextButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        navigateToWho(v);
-                    }
-                });
-                break;
-            case WHO:
-                who.setPaintFlags(who.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                whoCard.setVisibility(View.VISIBLE);
-
-                backButton.setVisibility(View.VISIBLE);
-                backButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        navigateToWhen(v);
-                    }
-                });
-                sendInvite.setVisibility(View.GONE);
-                nextButton.setVisibility(View.VISIBLE);
-                nextButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        navigateToWhere(v);
-                    }
-                });
-                break;
-            case WHERE:
-                where.setPaintFlags(where.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                whereCard.setVisibility(View.VISIBLE);
-
-                backButton.setVisibility(View.VISIBLE);
-                backButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        navigateToWho(v);
+                        navigateToEventInformation(v);
                     }
                 });
                 sendInvite.setVisibility(View.VISIBLE);
                 nextButton.setVisibility(View.GONE);
-
                 break;
-        }
-    }
-
-    public void toggleWhenSelector(View v) {
-        Button toggle = (Button)findViewById(R.id.whenSelectorToggle);
-        TimePicker timePicker = (TimePicker)findViewById(R.id.timePicker);
-        DatePicker datePicker = (DatePicker)findViewById(R.id.datePicker);
-
-        if (timePicker.getVisibility() == View.GONE) {
-            datePicker.setVisibility(View.GONE);
-            timePicker.setVisibility(View.VISIBLE);
-            toggle.setText(R.string.toggleToDatePicker);
-        } else {
-            datePicker.setVisibility(View.VISIBLE);
-            timePicker.setVisibility(View.GONE);
-            toggle.setText(R.string.toggleToTimePicker);
         }
     }
 
@@ -337,23 +262,37 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         TextView eventName = (TextView) findViewById(R.id.eventName);
         TextView eventDescription = (TextView) findViewById(R.id.eventDescription);
         TextView eventLocation = (TextView) findViewById(R.id.eventLocation);
+        TextView minPeopleView = (TextView) findViewById(R.id.minPeopleNumber);
+        int minPeople = Integer.parseInt(minPeopleView.getText().toString());
 
 
         String eventOwnerId = (String) firebaseUser.getUid();
 
         Event e = new Event(eventName.getText().toString(), eventDescription.getText().toString(),
                             eventLocation.getText().toString(), eventStartTime.getTimeInMillis(), 0, invitedList, null,
-                            null, 0, eventOwnerId);
+                            null, minPeople, eventOwnerId);
         manager.createEvent(e);
         startActivity(new Intent(this, EventListActivity.class));
-
-       // TextView feedback = (TextView) findViewById(R.id.feedback);
-       // feedback.setText("your Invitation has been sent!");
     }
 
     public void cancelEventCreation(View v) {
-
         startActivity(new Intent(this, EventListActivity.class));
+    }
+
+    public void decrementMinPeople(View v) {
+        TextView minPeopleView = (TextView) findViewById(R.id.minPeopleNumber);
+        int minPeople = Integer.parseInt(minPeopleView.getText().toString());
+        if (minPeople > 0) {
+            minPeople--;
+            minPeopleView.setText(Integer.toString(minPeople));
+        }
+    }
+
+    public void incrementMinPeople(View v) {
+        TextView minPeopleView = (TextView) findViewById(R.id.minPeopleNumber);
+        int minPeople = Integer.parseInt(minPeopleView.getText().toString());
+        minPeople++;
+        minPeopleView.setText(Integer.toString(minPeople));
     }
 
     @Override
@@ -361,6 +300,7 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         inviteListAdapter.notifyDataSetChanged();
     }
 
+    /*
     public void inviteFriendsButton(View v) {
         CheckBox checkBox = (CheckBox) v.findViewById(R.id.friendCheck);
         TextView id = (TextView) v.findViewById(R.id.friendId);
@@ -374,7 +314,9 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         }
     }
 
+
     public void createEvent() {
 
     }
+    */
 }
