@@ -7,6 +7,9 @@
     <string name="noFirstName">no_first_name</string>
     <string name="noLastName">no_last_name</string>
     <string name="noUsername">no_username</string>
+    <string name="signInCancelled">Sign In Cancelled</string>
+    <string name="noNetworkConnection">No Internet Connection</string>
+    <string name="unknownError">Unknown Error</string>
 
     <string-array name="min_people_amount">
         <item>1</item>

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
@@ -38,6 +39,9 @@ dependencies {
 
     // FirebaseUI for Cloud Storage
     //compile 'com.firebaseui:firebase-ui-storage:3.0.0'
+
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
 
     compile "com.firebaseui:firebase-ui-auth:${firebaseVersion}"
