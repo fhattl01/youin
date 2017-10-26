@@ -4,6 +4,7 @@ import android.widget.TextView;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class Event {
     private String name;
     private String description;
     private String location;
-    private Date startTime;
-    private Date rsvpDeadline;
+    private long startTime;
+    private long rsvpDeadline;
     private List<String> friendsInvitedIds;
     private List<String> friendsGoingIds;
     private List<String> friendsDeclinedIds;
@@ -29,14 +30,8 @@ public class Event {
     public Event() {
     }
 
-    public Event(String name, String description) {
-        this.name = name;
-        this.description = description;
-     //   this.dateOfEvent = dateOfEvent;
-     //   this.timeOfEvent = timeofEvent;
-    }
 
-    public Event(String eventName, String eventDescription, String eventLocation, Date eventStartTime, Date respondDeadline, List<String> friendsInvited, List<String> going,
+    public Event(String eventName, String eventDescription, String eventLocation, long eventStartTime, long respondDeadline, List<String> friendsInvited, List<String> going,
                  List<String> declined, int minimumPeople, String eventOwnerId) {
         name = eventName;
         description = eventDescription;
@@ -65,11 +60,11 @@ public class Event {
         return location;
     }
 
-    public Date getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
-    public Date getRsvpDeadline() {
+    public long getRsvpDeadline() {
         return rsvpDeadline;
     }
 

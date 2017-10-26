@@ -1,5 +1,7 @@
 package edu.tufts.cs.comp150.youin;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
@@ -25,10 +27,15 @@ import com.google.firebase.auth.FirebaseUser;
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.SimpleTimeZone;
 
 
 public class CreateEventActivity extends AppCompatActivity implements FriendListView {
@@ -40,6 +47,10 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
     private ListView friendsList;
     private DatabaseManager manager;
     private List<String> invitedList;
+    private int mYear, mMonth, mDay, hour, eventMinute;
+    static final int TIME_DIALOG_ID = 999;
+    private Calendar eventStartTime;
+    private Calendar rsvpDeadline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +60,9 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         invitedList = new ArrayList<String>();
+
+        eventStartTime = Calendar.getInstance();
+        rsvpDeadline = null;
 
         //Now check if this user is null
         if (firebaseUser == null){
@@ -70,6 +84,95 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         manager.getFriendData(friends, this);
         displayFriendList();
         invitedList.add(firebaseUser.getUid());
+
+        final Button pickTime = (Button) findViewById(R.id.pickTime);
+        final TextView timeTextView = (TextView) findViewById(R.id.time);
+        final Button pickDate = (Button) findViewById(R.id.pickDate);
+        final TextView dateTextView = (TextView) findViewById(R.id.date);
+
+
+        final Calendar dateCalendar = Calendar.getInstance();
+        final Calendar timeCalendar = Calendar.getInstance();
+        final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                timeCalendar.set(Calendar.HOUR_OF_DAY, i);
+                timeCalendar.set(Calendar.MINUTE, i1);
+            }
+        };
+
+        pickTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Calendar c = Calendar.getInstance();
+                int currentHour = c.get(Calendar.HOUR_OF_DAY);
+                int currentMinute = c.get(Calendar.MINUTE);
+
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEventActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                timeTextView.setText(hourOfDay + ":" + minute);
+                                hour = hourOfDay;
+                                eventMinute = minute;
+                                eventStartTime.set(mYear, mMonth, mDay, hour, eventMinute);
+                            }
+                        }, currentHour, currentMinute, false);
+                timePickerDialog.show();
+            }
+        });
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                dateCalendar.set(Calendar.YEAR, year);
+                dateCalendar.set(Calendar.MONTH, monthOfYear);
+                dateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                String myFormat = "yyyy-MM-dd";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                eventStartTime.set(year, monthOfYear, dayOfMonth);
+                dateTextView.setText(sdf.format(dateCalendar.getTime()));
+            }
+        };
+
+        pickDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                final int currentYear = c.get(Calendar.YEAR);
+                final int currentMonth = c.get(Calendar.MONTH);
+                final int currentDay = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dpd = new DatePickerDialog(CreateEventActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                if (year < currentYear)
+                                    view.updateDate(currentYear, currentMonth, currentDay);
+                                if (monthOfYear < currentMonth && year == currentYear)
+                                    view.updateDate(currentYear,currentMonth,currentDay);
+
+                                if (dayOfMonth < currentDay && year == currentYear && monthOfYear == currentMonth)
+                                    view.updateDate(currentYear,currentMonth,currentDay);
+
+                                dateTextView.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                mYear = year;
+                                mMonth = monthOfYear;
+                                mDay = dayOfMonth;
+                                eventStartTime.set(mYear, mMonth, mDay, hour, eventMinute);
+                            }
+                        }, currentYear, currentMonth, currentDay);
+                dpd.getDatePicker().setMinDate(System.currentTimeMillis());
+                dpd.show();
+            }
+        });
+
     }
 
     private void displayFriendList() {
@@ -234,13 +337,15 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         TextView eventName = (TextView) findViewById(R.id.eventName);
         TextView eventDescription = (TextView) findViewById(R.id.eventDescription);
         TextView eventLocation = (TextView) findViewById(R.id.eventLocation);
-        TimePicker eventStartTime = (TimePicker) findViewById(R.id.timePicker);
+
+
         String eventOwnerId = (String) firebaseUser.getUid();
 
         Event e = new Event(eventName.getText().toString(), eventDescription.getText().toString(),
-                            eventLocation.getText().toString(), null, null, invitedList, null,
+                            eventLocation.getText().toString(), eventStartTime.getTimeInMillis(), 0, invitedList, null,
                             null, 0, eventOwnerId);
         manager.createEvent(e);
+        startActivity(new Intent(this, EventListActivity.class));
 
        // TextView feedback = (TextView) findViewById(R.id.feedback);
        // feedback.setText("your Invitation has been sent!");
