@@ -118,7 +118,7 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
 
-                                timeTextView.setText(hourOfDay + ":" + minute);
+                                pickTime.setText(hourOfDay + ":" + minute);
                                 hour = hourOfDay;
                                 eventMinute = minute;
                                 eventStartTime.set(mYear, mMonth, mDay, hour, eventMinute);
@@ -138,7 +138,7 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
                 String myFormat = "yyyy-MM-dd";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                 eventStartTime.set(year, monthOfYear, dayOfMonth);
-                dateTextView.setText(sdf.format(dateCalendar.getTime()));
+                pickDate.setText(sdf.format(dateCalendar.getTime()));
             }
         };
 

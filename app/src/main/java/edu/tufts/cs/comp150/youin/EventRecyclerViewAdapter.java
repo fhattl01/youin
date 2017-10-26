@@ -88,7 +88,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             int noDecisionColor = Color.parseColor("#FFFFFF");
             holder.name.setText(event.getName());
             holder.description.setText(event.getDescription());
-            holder.minPeople.setText(event.getMinPeopleToGo());
+            holder.minPeople.setText(Integer.toString(event.getMinPeopleToGo()));
             Calendar c = Calendar.getInstance();
 
             c.setTimeInMillis(event.getStartTime());
