@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -128,43 +129,49 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
 
             List<String> friendsGoingIds = event.getFriendsGoingIds();
             List<Friend> friendsGoing = new ArrayList<>();
-            final FriendsListAdapter friendsListAdapterAccepted = new FriendsListAdapter(friendsGoing,
+            final EventInvitedUserAdapter friendsListAdapterAccepted = new EventInvitedUserAdapter(friendsGoing,
                     applicationContext);
             FriendListView goingView = new FriendListView() {
                 @Override
                 public void friendDataChanged() {
                     friendsListAdapterAccepted.notifyDataSetChanged();
+                    UIUtils.setListViewHeightBasedOnItems(holder.friendsAttending);
                 }
             };
             manager.getEventFriendData(friendsGoingIds, friendsGoing, goingView);
 
             List<String> friendsNotGoingIds = event.getFriendsDeclinedIds();
             List<Friend> friendsNotGoing = new ArrayList<>();
-            final FriendsListAdapter friendsListAdapterDeclined = new FriendsListAdapter(friendsNotGoing,
+            final EventInvitedUserAdapter friendsListAdapterDeclined = new EventInvitedUserAdapter(friendsNotGoing,
                     applicationContext);
             FriendListView notGoingView = new FriendListView() {
                 @Override
                 public void friendDataChanged() {
                     friendsListAdapterDeclined.notifyDataSetChanged();
+                    UIUtils.setListViewHeightBasedOnItems(holder.friendsNotAttending);
                 }
             };
             manager.getEventFriendData(friendsNotGoingIds, friendsNotGoing, notGoingView);
 
             List<String> friendsInvitedIds = event.getFriendsInvitedIds();
             List<Friend> friendsInvited = new ArrayList<>();
-            final FriendsListAdapter friendsListAdapterInvited = new FriendsListAdapter(friendsInvited,
+            final EventInvitedUserAdapter friendsListAdapterInvited = new EventInvitedUserAdapter(friendsInvited,
                     applicationContext);
             FriendListView invitedView = new FriendListView() {
                 @Override
                 public void friendDataChanged() {
                     friendsListAdapterInvited.notifyDataSetChanged();
+                    UIUtils.setListViewHeightBasedOnItems(holder.friendsInvited);
                 }
             };
             manager.getEventFriendData(friendsInvitedIds, friendsInvited, invitedView);
 
             holder.friendsAttending.setAdapter(friendsListAdapterAccepted);
+            UIUtils.setListViewHeightBasedOnItems(holder.friendsAttending);
             holder.friendsNotAttending.setAdapter(friendsListAdapterDeclined);
+            UIUtils.setListViewHeightBasedOnItems(holder.friendsNotAttending);
             holder.friendsInvited.setAdapter(friendsListAdapterInvited);
+            UIUtils.setListViewHeightBasedOnItems(holder.friendsInvited);
 
         }
     }

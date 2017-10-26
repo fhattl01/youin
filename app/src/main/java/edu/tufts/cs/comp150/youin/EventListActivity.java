@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -72,6 +74,12 @@ public class EventListActivity extends AppCompatActivity implements EventListVie
 
     @Override
     public void eventViewDataChanged() {
+        Collections.sort(eventList, new Comparator<Event>() {
+            @Override
+            public int compare(Event event, Event t1) {
+                return (int)(t1.getStartTime() - event.getStartTime());
+            }
+        });
         eAdapter.notifyDataSetChanged();
     }
 
