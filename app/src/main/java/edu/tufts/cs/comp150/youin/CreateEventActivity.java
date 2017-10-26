@@ -162,7 +162,7 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
                                 if (dayOfMonth < currentDay && year == currentYear && monthOfYear == currentMonth)
                                     view.updateDate(currentYear,currentMonth,currentDay);
 
-                                dateTextView.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                dateTextView.setText((monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
                                 mYear = year;
                                 mMonth = monthOfYear;
                                 mDay = dayOfMonth;

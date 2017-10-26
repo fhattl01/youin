@@ -21,7 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 import org.w3c.dom.Text;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,9 +37,12 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
 
 
     public class EventHolder extends RecyclerView.ViewHolder {
-        public TextView name, description;// date, time;
+        public TextView name, description;
         public Button attending, notAttending;
         public ListView friendsAttending, friendsNotAttending, friendsInvited;
+        public TextView timeOfEvent;
+        public TextView dateOfEvent;
+
 
         public EventHolder(View view) {
             super(view);
@@ -51,8 +56,8 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             friendsAttending = (ListView) view.findViewById(R.id.friendsAttending);
             friendsNotAttending = (ListView) view.findViewById(R.id.friendsNotAttending);
             friendsInvited = (ListView) view.findViewById(R.id.friendsInvited);
-            // date = (TextView) view.findViewById(R.id.date);
-            //time = (TextView) view.findViewById(R.id.time);
+            timeOfEvent = (TextView) view.findViewById(R.id.timeOfEvent);
+            dateOfEvent = (TextView) view.findViewById(R.id.dateOfEvent);
         }
     }
 
@@ -76,10 +81,20 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
         Log.d("ATTENDING", "Event Name");
 
         if (event != null) {
-            int backgroundColor = Color.parseColor("#4682B4");
+            int backgroundColor = Color.parseColor("#3a65c9");
             int noDecisionColor = Color.parseColor("#FFFFFF");
             holder.name.setText(event.getName());
             holder.description.setText(event.getDescription());
+            Calendar c = Calendar.getInstance();
+
+            c.setTimeInMillis(event.getStartTime());
+            String dateFormat = "MM/dd/yyyy";
+            String timeFormat = "h:mm a";
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(dateFormat);
+            SimpleDateFormat timeFormatter = new SimpleDateFormat(timeFormat);
+            holder.timeOfEvent.setText(dateFormatter.format(c.getTime()));
+            holder.dateOfEvent.setText(timeFormatter.format(c.getTime()));
+
             if (event.isGoing(userId)) {
                 holder.attending.setBackgroundColor(backgroundColor);
                 holder.notAttending.setBackgroundColor(noDecisionColor);
@@ -94,8 +109,6 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             holder.attending.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("ATTENDING", "User ID: " + user.getUid());
-                    //DatabaseManager manager = new DatabaseManager(user.getUid());.
                     event.respondGoing(user.getUid());
                     manager.modifyEvent(event);
                 }
@@ -104,8 +117,6 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             holder.notAttending.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("ATTENDING", "User ID: " + user.getUid());
-                    //DatabaseManager manager = new DatabaseManager(user.getUid());.
                     event.respondDeclined(user.getUid());
                     manager.modifyEvent(event);
                 }
@@ -148,12 +159,10 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             };
             manager.getEventFriendData(friendsInvitedIds, friendsInvited, invitedView);
 
-            //FriendsListAdapter friendsListAdapterInvited = new FriendsListAdapter(manager.getFriends(friendsInvited),
-                   // applicationContext);
-
             holder.friendsAttending.setAdapter(friendsListAdapterAccepted);
             holder.friendsNotAttending.setAdapter(friendsListAdapterDeclined);
             holder.friendsInvited.setAdapter(friendsListAdapterInvited);
+
         }
     }
 
