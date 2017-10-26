@@ -93,15 +93,3 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         return result;
     }
 }
-
-
-      /*  TextView friendRow = (TextView)convertView.findViewById(R.id.nameOfFriend);
-        if (friend.getName() != null) {
-            friendRow.setText(friend.getName());
-        }
-        TextView friendId = (TextView)convertView.findViewById(R.id.idOfFriend);
-        if (friend.getId() != null) {
-            friendId.setText(friend.getId());
-        }
-
-        return convertView;*/
