@@ -41,6 +41,8 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
         public Button attending, notAttending;
         public ListView friendsAttending, friendsNotAttending, friendsInvited;
         public TextView timeOfEvent;
+        public TextView dateOfEvent;
+
 
         public EventHolder(View view) {
             super(view);
@@ -55,6 +57,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             friendsNotAttending = (ListView) view.findViewById(R.id.friendsNotAttending);
             friendsInvited = (ListView) view.findViewById(R.id.friendsInvited);
             timeOfEvent = (TextView) view.findViewById(R.id.timeOfEvent);
+            dateOfEvent = (TextView) view.findViewById(R.id.dateOfEvent);
             // date = (TextView) view.findViewById(R.id.date);
             //time = (TextView) view.findViewById(R.id.time);
         }
@@ -87,9 +90,12 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             Calendar c = Calendar.getInstance();
 
             c.setTimeInMillis(event.getStartTime());
-            String myFormat = "dd/MM/yyyy hh:mm";
-            SimpleDateFormat formatter = new SimpleDateFormat(myFormat);
-            holder.timeOfEvent.setText(formatter.format(c.getTime()));
+            String dateFormat = "MM/dd/yyyy";
+            String timeFormat = "h:mm a";
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(dateFormat);
+            SimpleDateFormat timeFormatter = new SimpleDateFormat(timeFormat);
+            holder.timeOfEvent.setText(dateFormatter.format(c.getTime()));
+            holder.dateOfEvent.setText(timeFormatter.format(c.getTime()));
 
             if (event.isGoing(userId)) {
                 holder.attending.setBackgroundColor(backgroundColor);

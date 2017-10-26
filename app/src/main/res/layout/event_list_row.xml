@@ -48,13 +48,30 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Date and Time: "
+                        android:text="Date: "
                         android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/timeOfEvent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Time of Event"/>
+                        android:text="Date of Event"/>
+
+
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time: "
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/dateOfEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Time of Event "/>
                 </LinearLayout>
 
                 <LinearLayout
