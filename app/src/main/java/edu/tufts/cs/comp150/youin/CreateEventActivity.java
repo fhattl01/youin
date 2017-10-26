@@ -22,6 +22,7 @@ import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -264,7 +265,6 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         TextView eventLocation = (TextView) findViewById(R.id.eventLocation);
         TextView minPeopleView = (TextView) findViewById(R.id.minPeopleNumber);
         int minPeople = Integer.parseInt(minPeopleView.getText().toString());
-
 
         String eventOwnerId = (String) firebaseUser.getUid();
 
