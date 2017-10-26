@@ -21,7 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 import org.w3c.dom.Text;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
         public TextView name, description;// date, time;
         public Button attending, notAttending;
         public ListView friendsAttending, friendsNotAttending, friendsInvited;
+        public TextView timeOfEvent;
 
         public EventHolder(View view) {
             super(view);
@@ -51,6 +54,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             friendsAttending = (ListView) view.findViewById(R.id.friendsAttending);
             friendsNotAttending = (ListView) view.findViewById(R.id.friendsNotAttending);
             friendsInvited = (ListView) view.findViewById(R.id.friendsInvited);
+            timeOfEvent = (TextView) view.findViewById(R.id.timeOfEvent);
             // date = (TextView) view.findViewById(R.id.date);
             //time = (TextView) view.findViewById(R.id.time);
         }
@@ -76,10 +80,17 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
         Log.d("ATTENDING", "Event Name");
 
         if (event != null) {
-            int backgroundColor = Color.parseColor("#4682B4");
+            int backgroundColor = Color.parseColor("#3a65c9");
             int noDecisionColor = Color.parseColor("#FFFFFF");
             holder.name.setText(event.getName());
             holder.description.setText(event.getDescription());
+            Calendar c = Calendar.getInstance();
+
+            c.setTimeInMillis(event.getStartTime());
+            String myFormat = "dd/MM/yyyy hh:mm";
+            SimpleDateFormat formatter = new SimpleDateFormat(myFormat);
+            holder.timeOfEvent.setText(formatter.format(c.getTime()));
+
             if (event.isGoing(userId)) {
                 holder.attending.setBackgroundColor(backgroundColor);
                 holder.notAttending.setBackgroundColor(noDecisionColor);
@@ -154,6 +165,8 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             holder.friendsAttending.setAdapter(friendsListAdapterAccepted);
             holder.friendsNotAttending.setAdapter(friendsListAdapterDeclined);
             holder.friendsInvited.setAdapter(friendsListAdapterInvited);
+
+
         }
     }
 
