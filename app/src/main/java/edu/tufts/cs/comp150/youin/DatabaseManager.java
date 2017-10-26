@@ -36,7 +36,7 @@ public class DatabaseManager {
         DatabaseReference user = ref.child("users").child(uid);
         user.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                 Profile profile = dataSnapshot.getValue(Profile.class);
                 profileView.setupProfileView(profile);
             }
@@ -52,7 +52,7 @@ public class DatabaseManager {
         DatabaseReference usersRef = ref.child("users").child(uid);
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                 Profile profile = dataSnapshot.getValue(Profile.class);
                 auth.handleProfileCreation(profile == null);
             }
@@ -74,7 +74,7 @@ public class DatabaseManager {
         DatabaseReference user = ref.child("users").child(uid).child("events");
         user.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                 eventList.clear();
                 for (final DataSnapshot event : dataSnapshot.getChildren()) {
                     final String eventId = event.getValue(String.class);
@@ -82,9 +82,10 @@ public class DatabaseManager {
                     DatabaseReference eventRef = ref.child("events").child(eventId);
                     eventRef.addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                             //Remove the event in the list that corresponds to the updated event.
-                            for (Event toRemove : eventList) {
+                            for (int i = 0; i < eventList.size(); i++) {
+                                Event toRemove = eventList.get(i);
                                 if (toRemove.getEventId().equals(eventId)) {
                                     eventList.remove(toRemove);
                                 }
@@ -112,13 +113,13 @@ public class DatabaseManager {
         DatabaseReference user = ref.child("users").child(uid).child("friends");
         user.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                 friendList.clear();
                 for (DataSnapshot friend : dataSnapshot.getChildren()) {
                     DatabaseReference friendRef = ref.child("users").child(friend.getValue(String.class));
                     friendRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                             String userId = dataSnapshot.getKey();
                             Log.d("SEARCH", "Bad Method UID: " + userId);
                             Profile profile = dataSnapshot.getValue(Profile.class);
@@ -146,7 +147,7 @@ public class DatabaseManager {
         Query friends = ref.child("users");
         friends.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                 friendList.clear();
                 for (DataSnapshot user : dataSnapshot.getChildren()) {
                     Log.d("SEARCH", user.toString());
@@ -180,7 +181,7 @@ public class DatabaseManager {
 
         myProfileRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> friends = dataSnapshot.getValue(stringList);
                 if (friends == null) {
                     friends = new ArrayList<String>();
@@ -198,7 +199,7 @@ public class DatabaseManager {
         });
         friendProfileRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> friends = dataSnapshot.getValue(stringList);
                 if (friends == null) {
                     friends = new ArrayList<String>();
@@ -264,7 +265,7 @@ public class DatabaseManager {
                 DatabaseReference friendRef = ref.child("users").child(friendId);
                 friendRef.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                         String id = dataSnapshot.getKey();
                         Profile friendProfile = dataSnapshot.getValue(Profile.class);
                         Friend f = new Friend(friendProfile.getFirstName() + " " + friendProfile.getLastName(),
