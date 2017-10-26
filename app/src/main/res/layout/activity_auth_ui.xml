@@ -30,4 +30,4 @@
             android:text="Sign In"
             android:textSize="36sp" />
     </LinearLayout>
-    </android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>
