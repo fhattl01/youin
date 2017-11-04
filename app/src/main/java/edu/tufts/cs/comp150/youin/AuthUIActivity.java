@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
@@ -44,6 +45,9 @@ public class AuthUIActivity extends AppCompatActivity {
         if (firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(activity, EventListActivity.class));
             return;
+        } else {
+            Button retry = findViewById(R.id.retrySignIn);
+            retry.setVisibility(View.VISIBLE);
         }
 
         startActivityForResult(

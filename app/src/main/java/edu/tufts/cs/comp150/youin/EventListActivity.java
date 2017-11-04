@@ -77,7 +77,14 @@ public class EventListActivity extends AppCompatActivity implements EventListVie
         Collections.sort(eventList, new Comparator<Event>() {
             @Override
             public int compare(Event event, Event t1) {
-                return (int)(t1.getStartTime() - event.getStartTime());
+                long compVal = t1.getStartTime() - event.getStartTime();
+                if (compVal > 0){
+                    return 1;
+                } else if (compVal == 0) {
+                    return 0;
+                } else {
+                    return -1;
+                }
             }
         });
         eAdapter.notifyDataSetChanged();

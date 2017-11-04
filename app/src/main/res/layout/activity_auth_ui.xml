@@ -21,13 +21,16 @@
             android:paddingBottom="20dp"
             android:text="You In?"
             android:textSize="56sp" />
+
         <Button
-            android:padding="10dp"
+            android:id="@+id/retrySignIn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:onClick="retrySignIn"
+            android:padding="10dp"
             android:text="Sign In"
-            android:textSize="36sp" />
+            android:textSize="18sp"
+            android:visibility="gone"/>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
