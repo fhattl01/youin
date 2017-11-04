@@ -8,6 +8,8 @@
 /build
 /captures
 .externalNativeBuild
+/app/src/main/res/values/apikeys.xml
+/app/fabric.properties
 
 # Dont ignore .gitignore (this file)
 # This is just for verbosity, you can leave it out if

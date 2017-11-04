@@ -86,4 +86,9 @@ public class EventListActivity extends AppCompatActivity implements EventListVie
     public void viewFriends(View v) {
         startActivity(new Intent(this, ManageFriendsActivity.class));
     }
+
+    public void forceCrash(View view) {
+        throw new RuntimeException("This is a crash");
+    }
+
 }

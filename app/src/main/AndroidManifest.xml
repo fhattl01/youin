@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="edu.tufts.cs.comp150.youin">
 
     <application
@@ -31,6 +32,11 @@
             android:name=".EventListActivity"
             android:label="Your Events"/>
         <activity android:name=".ManageFriendsActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="@string/crashlyticskey"
+            tools:replace="android:value"/>
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
