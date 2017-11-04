@@ -64,7 +64,7 @@
                 android:onClick="createEventButton"
                 android:text="Create Event"
                 android:textStyle="bold"
-                android:textColor="@color/blue" />
+                android:textColor="@color/colorPrimaryDark" />
 
 
 

@@ -1,9 +1,11 @@
 package edu.tufts.cs.comp150.youin;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -87,8 +89,9 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
 
 
         if (event != null) {
-            int backgroundColor = Color.parseColor("#3a65c9");
-            int noDecisionColor;
+            int backgroundColor = ResourcesCompat.getColor(applicationContext.getResources(), R.color.PrimaryTealDark, null);
+            //Color.parseColor("#3a65c9");
+            int noDecisionColor = ResourcesCompat.getColor(applicationContext.getResources(), R.color.SecondaryGray, null);
             holder.name.setText(event.getName());
             holder.description.setText(event.getDescription());
             holder.minPeople.setText(Integer.toString(event.getMinPeopleToGo()));
@@ -97,11 +100,11 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             if (position % 2 == 0) {
                 Log.d("COLOR", "Color should be grey");
                 holder.cardView.setBackgroundColor(Color.parseColor("#F5F5F5"));
-                noDecisionColor = Color.parseColor("#F5F5F5");
+               // noDecisionColor = Color.parseColor("#F5F5F5");
             }else {
                 Log.d("COLOR", "Color should be white");
                 holder.cardView.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                noDecisionColor = Color.parseColor("#FFFFFF");
+             //   noDecisionColor = Color.parseColor("#FFFFFF");
             }
 
             c.setTimeInMillis(event.getStartTime());

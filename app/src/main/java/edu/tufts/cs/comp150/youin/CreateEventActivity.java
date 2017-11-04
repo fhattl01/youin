@@ -53,6 +53,8 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
     static final int TIME_DIALOG_ID = 999;
     private Calendar eventStartTime;
     private Calendar rsvpDeadline;
+    private Calendar textEventStartTime;
+    private String am_pm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,8 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         invitedList = new ArrayList<String>();
 
         eventStartTime = Calendar.getInstance();
+        textEventStartTime = Calendar.getInstance();
+        am_pm = "";
         rsvpDeadline = null;
 
         //Now check if this user is null
@@ -113,18 +117,22 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
                 int currentHour = c.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = c.get(Calendar.MINUTE);
 
-
                 TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEventActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
                                 SimpleDateFormat stz = new SimpleDateFormat("h:mm a");
-                                String time = stz.format(timeCalendar.getTime());
-                                pickTime.setText(time);
                                 hour = hourOfDay;
                                 eventMinute = minute;
                                 eventStartTime.set(mYear, mMonth, mDay, hour, eventMinute);
+                                if (hourOfDay < 12) {
+                                    am_pm = "am";
+
+                                } else {
+                                    am_pm = "pm";
+                                }
+                                pickTime.setText(hourOfDay + ":" + eventMinute + " " + am_pm);
                             }
                         }, currentHour, currentMinute, false);
                 timePickerDialog.show();
