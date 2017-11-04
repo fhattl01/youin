@@ -10,6 +10,9 @@
     <string name="signInCancelled">Sign In Cancelled</string>
     <string name="noNetworkConnection">No Internet Connection</string>
     <string name="unknownError">Unknown Error</string>
+    <string name="noEventName">Please Enter an Event Name</string>
+    <string name="invalidEventTime">Please Enter a Date and Time in the Future</string>
+
 
     <string-array name="min_people_amount">
         <item>1</item>

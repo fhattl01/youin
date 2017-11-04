@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -271,19 +273,39 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
 
     public void sendInvite(View view) {
         manager = new DatabaseManager(firebaseUser.getUid());
+
         TextView eventName = (TextView) findViewById(R.id.eventName);
+        String name = eventName.getText().toString();
+
         TextView eventDescription = (TextView) findViewById(R.id.eventDescription);
+        String description = eventDescription.getText().toString();
+
         TextView eventLocation = (TextView) findViewById(R.id.eventLocation);
+        String location = eventLocation.getText().toString();
+
+        long startTime = eventStartTime.getTimeInMillis();
+
         TextView minPeopleView = (TextView) findViewById(R.id.minPeopleNumber);
         int minPeople = Integer.parseInt(minPeopleView.getText().toString());
 
+
         String eventOwnerId = (String) firebaseUser.getUid();
 
-        Event e = new Event(eventName.getText().toString(), eventDescription.getText().toString(),
-                            eventLocation.getText().toString(), eventStartTime.getTimeInMillis(), 0, invitedList, null,
-                            null, minPeople, eventOwnerId);
-        manager.createEvent(e);
-        startActivity(new Intent(this, EventListActivity.class));
+        if (name.equals("") || name == null) {
+            showToast(R.string.noEventName);
+        } else if (description == null) {
+            description = "";
+        } else if (location == null) {
+            location = "";
+        } else if (startTime < Calendar.getInstance().getTimeInMillis()) {
+            showToast(R.string.invalidEventTime);
+        } else {
+
+            Event e = new Event(name, description, location, startTime, 0, invitedList,
+                    null, null, minPeople, eventOwnerId);
+            manager.createEvent(e);
+            startActivity(new Intent(this, EventListActivity.class));
+        }
     }
 
     public void cancelEventCreation(View v) {
@@ -309,6 +331,11 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
     @Override
     public void friendDataChanged() {
         inviteListAdapter.notifyDataSetChanged();
+    }
+
+    private void showToast(@StringRes int errorMessageRes) {
+        View rootView = findViewById(R.id.createEventRoot);
+        Snackbar.make(rootView, errorMessageRes, Snackbar.LENGTH_LONG).show();
     }
 
     /*

@@ -94,7 +94,24 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             int noDecisionColor = ResourcesCompat.getColor(applicationContext.getResources(), R.color.SecondaryGray, null);
             holder.name.setText(event.getName());
             holder.description.setText(event.getDescription());
-            holder.minPeople.setText(Integer.toString(event.getMinPeopleToGo()));
+            String minPeopleText = "This event has enough people!";
+            holder.minPeople.setTextColor(ContextCompat.getColor(applicationContext, R.color.green));
+            int minPeople = event.getMinPeopleToGo();
+            int peopleGoing = 0;
+            if (event.getFriendsGoingIds() != null) {
+                peopleGoing = event.getFriendsGoingIds().size();
+            }
+            if (minPeople > peopleGoing) {
+                int peopleNeeded = minPeople - peopleGoing;
+                if (peopleNeeded == 1) {
+                    minPeopleText = "This event needs 1 more person";
+                    holder.minPeople.setTextColor(ContextCompat.getColor(applicationContext, R.color.red));
+                } else {
+                    minPeopleText = "This event needs " + Integer.toString(peopleNeeded) + " more people";
+                    holder.minPeople.setTextColor(ContextCompat.getColor(applicationContext, R.color.red));
+                }
+            }
+            holder.minPeople.setText(minPeopleText);
             Calendar c = Calendar.getInstance();
 
             if (position % 2 == 0) {
