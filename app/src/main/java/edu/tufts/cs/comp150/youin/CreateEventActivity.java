@@ -52,10 +52,8 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
     private DatabaseManager manager;
     private List<String> invitedList;
     private int mYear, mMonth, mDay, hour, eventMinute;
-    static final int TIME_DIALOG_ID = 999;
     private Calendar eventStartTime;
     private Calendar rsvpDeadline;
-    private Calendar textEventStartTime;
     private String am_pm;
 
     @Override
@@ -68,7 +66,11 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         invitedList = new ArrayList<String>();
 
         eventStartTime = Calendar.getInstance();
-        textEventStartTime = Calendar.getInstance();
+        mYear = eventStartTime.get(Calendar.YEAR);
+        mMonth = eventStartTime.get(Calendar.MONTH);
+        mDay = eventStartTime.get(Calendar.DAY_OF_MONTH);
+        hour = eventStartTime.get(Calendar.HOUR_OF_DAY);
+        eventMinute = eventStartTime.get(Calendar.MINUTE);
         am_pm = "";
         rsvpDeadline = null;
 
@@ -98,27 +100,9 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         final Button pickDate = (Button) findViewById(R.id.pickDate);
         final TextView dateTextView = (TextView) findViewById(R.id.date);
 
-
-        final Calendar dateCalendar = Calendar.getInstance();
-        final Calendar timeCalendar = Calendar.getInstance();
-        final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                timeCalendar.set(Calendar.HOUR_OF_DAY, i);
-                timeCalendar.set(Calendar.MINUTE, i1);
-                SimpleDateFormat stz = new SimpleDateFormat("h:mm a", Locale.US);
-                String time = stz.format(timeCalendar.getTime());
-            }
-        };
-
         pickTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final Calendar c = Calendar.getInstance();
-                int currentHour = c.get(Calendar.HOUR_OF_DAY);
-                int currentMinute = c.get(Calendar.MINUTE);
-
                 TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEventActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
@@ -128,26 +112,13 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
                                 hour = hourOfDay;
                                 eventMinute = minute;
                                 eventStartTime.set(mYear, mMonth, mDay, hour, eventMinute);
+                                //Log.d("CREATE", "Time Picker Change: " + eventStartTime.getTimeInMillis());
                                 pickTime.setText(stz.format(eventStartTime.getTime()));
                             }
-                        }, currentHour, currentMinute, false);
+                        }, hour, eventMinute, false);
                 timePickerDialog.show();
             }
         });
-
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener()
-        {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                dateCalendar.set(Calendar.YEAR, year);
-                dateCalendar.set(Calendar.MONTH, monthOfYear);
-                dateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                String myFormat = "yyyy-MM-dd";
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                eventStartTime.set(year, monthOfYear, dayOfMonth);
-                pickDate.setText(sdf.format(dateCalendar.getTime()));
-            }
-        };
 
         pickDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,8 +146,9 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
                                 mMonth = monthOfYear;
                                 mDay = dayOfMonth;
                                 eventStartTime.set(mYear, mMonth, mDay, hour, eventMinute);
+                                //Log.d("CREATE", "Date Picker Change: " + eventStartTime.getTimeInMillis());
                             }
-                        }, currentYear, currentMonth, currentDay);
+                        }, mYear, mMonth, mDay);
                 dpd.getDatePicker().setMinDate(System.currentTimeMillis());
                 dpd.show();
             }
@@ -188,7 +160,7 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         friendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INVITE", "In onclicked");
+                //Log.d("INVITE", "In onclicked");
                 Friend friend = friends.get(i);
                 friend.flipInvite();
                 //friends.set(i, friend);
@@ -278,6 +250,8 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         String location = eventLocation.getText().toString();
 
         long startTime = eventStartTime.getTimeInMillis();
+        //Log.d("CREATE", "Start Time: " + startTime);
+        //Log.d("CREATE", "Current Time " + Calendar.getInstance().getTimeInMillis());
 
         TextView minPeopleView = (TextView) findViewById(R.id.minPeopleNumber);
         int minPeople = Integer.parseInt(minPeopleView.getText().toString());
@@ -337,24 +311,4 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
     public void toEventList(View v) {
         startActivity(new Intent(this, EventListActivity.class));
     }
-
-    /*
-    public void inviteFriendsButton(View v) {
-        CheckBox checkBox = (CheckBox) v.findViewById(R.id.friendCheck);
-        TextView id = (TextView) v.findViewById(R.id.friendId);
-        if (checkBox.isChecked()) {
-            invitedList.add(id.getText().toString());
-            Log.d("INVITE", invitedList.toString());
-        } else {
-            invitedList.remove(id.getText().toString());
-            Log.d("INVITE", invitedList.toString());
-
-        }
-    }
-
-
-    public void createEvent() {
-
-    }
-    */
 }
