@@ -20,6 +20,14 @@
         android:layout_marginRight="8dp"
         app:layout_constraintLeft_toLeftOf="parent">
 
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:background="@drawable/x_back_button"
+            android:onClick="toEventList"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,7 +64,6 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/pager_image"
                 android:text="Event Information"
                 android:onClick="navigateToEventInformation"/>
 
@@ -135,8 +142,7 @@
                             android:id="@+id/pickTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pick a Time"
-                            android:onClick="showTimePickerDialog"/>
+                            android:text="Pick a Time" />
 
                     </LinearLayout>
 
@@ -157,8 +163,7 @@
                             android:id="@+id/pickDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pick a Date"
-                            android:onClick="showDatePickerDialog"/>
+                            android:text="Pick a Date" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -205,7 +210,7 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="left"
                         android:text="Minimum Number of People"

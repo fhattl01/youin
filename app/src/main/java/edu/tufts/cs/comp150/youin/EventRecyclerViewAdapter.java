@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecyclerViewAdapter.EventHolder> {
 
@@ -127,8 +128,8 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             c.setTimeInMillis(event.getStartTime());
             String dateFormat = "MM/dd/yyyy";
             String timeFormat = "h:mm a";
-            SimpleDateFormat dateFormatter = new SimpleDateFormat(dateFormat);
-            SimpleDateFormat timeFormatter = new SimpleDateFormat(timeFormat);
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(dateFormat, Locale.US);
+            SimpleDateFormat timeFormatter = new SimpleDateFormat(timeFormat, Locale.US);
             holder.timeOfEvent.setText(dateFormatter.format(c.getTime()));
             holder.dateOfEvent.setText(timeFormatter.format(c.getTime()));
 
