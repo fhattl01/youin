@@ -1,27 +1,10 @@
 <resources>
     <string name="app_name">You In?</string>
-    <string name="toggleToDatePicker">Select a Date</string>
-    <string name="toggleToTimePicker">Select a Time</string>
     <string name="createEvent">Create Event</string>
-    <string name="createProfile">Create Profile</string>
-    <string name="noFirstName">no_first_name</string>
-    <string name="noLastName">no_last_name</string>
-    <string name="noUsername">no_username</string>
     <string name="signInCancelled">Sign In Cancelled</string>
     <string name="noNetworkConnection">No Internet Connection</string>
     <string name="unknownError">Unknown Error</string>
     <string name="noEventName">Please Enter an Event Name</string>
     <string name="invalidEventTime">Please Enter a Date and Time in the Future</string>
 
-
-    <string-array name="min_people_amount">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-    </string-array>
 </resources>
