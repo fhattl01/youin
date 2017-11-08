@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
@@ -21,7 +20,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text=""
-            android:hint="First Name" />
+            android:hint="@string/firstName" />
 
         <EditText
             android:id="@+id/enterLastName"
@@ -30,7 +29,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text=""
-            android:hint="Last Name" />
+            android:hint="@string/lastName" />
 
         <EditText
             android:id="@+id/enterUsername"
@@ -39,12 +38,12 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text=""
-            android:hint="username" />
+            android:hint="@string/username" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:weightSum="1">
             <View
                 android:layout_width="0dp"
@@ -55,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="createProfile"
-                android:text="Submit"/>
+                android:text="@string/submitButton"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

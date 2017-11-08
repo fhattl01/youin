@@ -24,7 +24,7 @@
             android:id="@+id/button2"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:background="@drawable/x_back_button"
             android:onClick="toEventList"/>
 
@@ -48,6 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:onClick="cancelEventCreation"
+                android:contentDescription="@string/cancelEvent"
                 android:src="@drawable/ic_action_cancel" />
         </LinearLayout>
 
@@ -64,7 +65,8 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Event Information"
+                android:text="@string/eventInfo"
+                android:background="?android:attr/selectableItemBackground"
                 android:onClick="navigateToEventInformation"/>
 
             <Button
@@ -72,7 +74,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add Friends"
+                android:text="@string/addFriend"
+                android:background="?android:attr/selectableItemBackground"
                 android:onClick="navigateToAddFriends"/>
 
         </LinearLayout>
@@ -97,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="text"
-                    android:hint="Event Name"
+                    android:hint="@string/eventName"
                     android:text="" />
 
                 <EditText
@@ -106,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="text"
-                    android:hint="Event Description"
+                    android:hint="@string/eventDescription"
                     android:text=""/>
                 <EditText
                     android:id="@+id/eventLocation"
@@ -114,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:hint="Location Name"
+                    android:hint="@string/location"
                     android:text=""/>
 
 
@@ -133,7 +136,7 @@
                         android:orientation="vertical">
                         <TextView
                             android:id="@+id/time"
-                            android:text="Select Time"
+                            android:text="@string/timeSelect"
                             android:gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -142,7 +145,7 @@
                             android:id="@+id/pickTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pick a Time" />
+                            android:text="@string/timePick" />
 
                     </LinearLayout>
 
@@ -153,7 +156,7 @@
                         android:orientation="vertical">
                         <TextView
                             android:id="@+id/date"
-                            android:text="Select Date"
+                            android:text="@string/dateSelect"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -163,7 +166,7 @@
                             android:id="@+id/pickDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pick a Date" />
+                            android:text="@string/datePick" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -193,14 +196,16 @@
                         android:id="@+id/friends"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
                         android:layout_weight="1"
-                        android:text="Friends" />
+                        android:text="@string/friends" />
                     <Button
                         android:id="@+id/groups"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
                         android:layout_weight="1"
-                        android:text="Groups" />
+                        android:text="@string/groups" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -212,25 +217,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:gravity="left"
-                        android:text="Minimum Number of People"
+                        android:gravity="start"
+                        android:text="@string/minPeople"
                         android:textSize="24sp" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="left">
+                        android:gravity="start">
                         <Button
                             android:id="@+id/minPeopleMinus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="-"
+                            android:text="@string/dash"
                             android:onClick="decrementMinPeople"/>
 
                         <TextView
                             android:id="@+id/minPeopleNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text="@string/zero"
                             android:gravity="center_vertical"
                             android:textSize="30sp" />
 
@@ -238,7 +243,7 @@
                             android:id="@+id/minPeoplePlus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="+"
+                            android:text="@string/plus"
                             android:onClick="incrementMinPeople"/>
                     </LinearLayout>
 
@@ -247,8 +252,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:text="Friends:"
+                    android:gravity="start"
+                    android:text="@string/friendsInvited"
                     android:textSize="24sp" />
 
                 <ListView
@@ -256,9 +261,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"/>
-
-
-
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -273,7 +275,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Back"
+                android:text="@string/backButton"
+                android:background="?android:attr/selectableItemBackground"
                 android:visibility="gone"
                 />
             <Button
@@ -281,7 +284,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Next"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="@string/nextButton"
                 android:onClick="navigateToAddFriends"
                 />
             <Button
@@ -290,10 +294,9 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:onClick="sendInvite"
-                android:text="Send Invite"
-                android:visibility="gone"
-                />
-
+                android:text="@string/sendInvite"
+                android:background="?android:attr/selectableItemBackground"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -7,5 +7,85 @@
     <string name="noEventName">Please Enter an Event Name</string>
     <string name="invalidEventTime">Please Enter a Date and Time in the Future</string>
     <string name="addFriends">Search for Friends</string>
+    <string name="signIn">Sign In</string>
+    <string name="eventInfo">Event Information</string>
+    <string name="addFriend">Add Friends</string>
+    <string name="eventName">Event Name</string>
+    <string name="eventDescription">Event Description</string>
+    <string name="location">Location Name</string>
+    <string name="timeSelect">Select Time</string>
+    <string name="timePick">Pick a Time</string>
+    <string name="dateSelect">Select Date</string>
+    <string name="datePick">Pick a Date</string>
+    <string name="friends">Friends</string>
+    <string name="groups">Groups</string>
+    <string name="minPeople">Minimum Number of People</string>
+    <string name="dash">-</string>
+    <string name="zero">0</string>
+    <string name="plus">+</string>
+    <string name="friendsInvited">Friends:</string>
+    <string name="backButton">Back</string>
+    <string name="nextButton">Next</string>
+    <string name="sendInvite">Send Invite</string>
+    <string name="cancelEvent">Cancel Event</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="username">Username</string>
+    <string name="submitButton">Submit</string>
+    <string name="forceCrash">Force Crash!</string>
+    <string name="profileView">Profile</string>
+    <string name="friendsView">Add Friends</string>
+    <string name="logOutButton">Log Out</string>
+    <string name="createEventButton">Create Event</string>
+    <string name="searchByUsername">Search by Username</string>
+    <string name="nameList">Name: </string>
+    <string name="name">Name</string>
+    <string name="usernameList">Username: </string>
+    <string name="emailList">Email: </string>
+    <string name="email">Email</string>
+    <string name="firstLast">First Last</string>
+    <string name="eventTitle">Title of Event</string>
+    <string name="descriptionList">Description: </string>
+    <string name="descriptionOfEvent">Description of Event</string>
+    <string name="dateList">Date: </string>
+    <string name="dateOfEvent">Date of Event</string>
+    <string name="listofTimes">Time: </string>
+    <string name="timeOfEvent">Time of Event</string>
+    <string name="minPeopleList">Min Number of People: </string>
+    <string name="minimumPeople">Minimum People</string>
+    <string name="goingResponse">Going</string>
+    <string name="notGoingResponse">"Can't Go"</string>
+    <string name="goingList">Going: </string>
+    <string name="notGoingList">Not Going: </string>
+    <string name="invitedList">Invited: </string>
+    <string name="addButton">Add</string>
+    <string name="nameOfFriend">Name of Friend</string>
+    <string name="friendId">friend Id</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

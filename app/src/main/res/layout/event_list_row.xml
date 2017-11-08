@@ -32,7 +32,7 @@
                     android:id="@+id/eventListName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Title of Event"
+                    android:text="@string/eventTitle"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="30sp"
                     android:textStyle="bold"/>
@@ -45,14 +45,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Description: "
+                        android:text="@string/descriptionList"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/eventListDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Description of Event"
+                        android:text="@string/descriptionOfEvent"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -64,14 +64,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Date: "
+                        android:text="@string/dateList"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/timeOfEvent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Date of Event"
+                        android:text="@string/dateOfEvent"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -83,14 +83,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time: "
+                        android:text="@string/listofTimes"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/dateOfEvent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Time of Event "
+                        android:text="@string/timeOfEvent"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -102,7 +102,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Min Number of People: "
+                        android:text="@string/minPeopleList"
                         android:textStyle="bold"
                         android:visibility="gone"/>
 
@@ -110,7 +110,7 @@
                         android:id="@+id/minPeople"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Minimum People"
+                        android:text="@string/minimumPeople"
                         android:textSize="18sp" />
 
                 </LinearLayout>
@@ -127,14 +127,16 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Going" />
+                        android:background="?android:attr/selectableItemBackground"
+                        android:text="@string/goingResponse" />
 
                     <Button
                         android:id="@+id/notAttendingButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Can't Go" />
+                        android:background="?android:attr/selectableItemBackground"
+                        android:text="@string/notGoingResponse" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -154,8 +156,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:text="Going:"
+                            android:layout_gravity="start"
+                            android:text="@string/goingList"
                             android:textStyle="bold" />
 
                         <ListView
@@ -176,8 +178,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:text="Not Going"
+                            android:layout_gravity="start"
+                            android:text="@string/notGoingList"
                             android:textStyle="bold" />
 
                         <ListView
@@ -197,8 +199,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:text="Invited"
+                            android:layout_gravity="start"
+                            android:text="@string/invitedList"
                             android:textStyle="bold" />
 
                         <ListView

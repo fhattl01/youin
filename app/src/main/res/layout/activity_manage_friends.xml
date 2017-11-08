@@ -18,24 +18,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:text="@string/addFriends"
             android:textSize="24sp" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_weight="1"
-            android:gravity="right">
+            android:gravity="end">
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="right"
+                android:layout_gravity="start"
                 android:background="@drawable/x_back_button"
-                android:gravity="right"
+                android:gravity="end"
                 android:onClick="toEventList" />
         </LinearLayout>
     </LinearLayout>
@@ -50,14 +50,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:hint="Search by Username"/>
+                android:hint="@string/searchByUsername"/>
 
             <Button
                 android:id="@+id/submitFriendSearch"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Submit"
+                android:text="@string/submitButton"
                 android:onClick="submitFriendSearch" />
 
         </LinearLayout>

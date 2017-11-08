@@ -169,8 +169,8 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
 
                                 if (dayOfMonth < currentDay && year == currentYear && monthOfYear == currentMonth)
                                     view.updateDate(currentYear,currentMonth,currentDay);
-
-                                pickDate.setText((monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
+                                String dateText = (monthOfYear + 1) + "-" + dayOfMonth + "-" + year;
+                                pickDate.setText(dateText);
                                 mYear = year;
                                 mMonth = monthOfYear;
                                 mDay = dayOfMonth;
@@ -311,7 +311,8 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         int minPeople = Integer.parseInt(minPeopleView.getText().toString());
         if (minPeople > 0) {
             minPeople--;
-            minPeopleView.setText(Integer.toString(minPeople));
+            String format = String.format("%d", minPeople);
+            minPeopleView.setText(format);
         }
     }
 
@@ -319,7 +320,8 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         TextView minPeopleView = (TextView) findViewById(R.id.minPeopleNumber);
         int minPeople = Integer.parseInt(minPeopleView.getText().toString());
         minPeople++;
-        minPeopleView.setText(Integer.toString(minPeople));
+        String format = String.format("%d", minPeople);
+        minPeopleView.setText(format);
     }
 
     @Override

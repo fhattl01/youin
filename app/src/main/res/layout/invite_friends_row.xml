@@ -22,13 +22,13 @@
             android:id="@+id/friendListName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="friends name" />
+            android:text="@string/nameOfFriend"/>
 
         <TextView
             android:id="@+id/friendId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="friend Id"
+            android:text="@string/friendId"
             android:visibility="gone" />
     </LinearLayout>
 

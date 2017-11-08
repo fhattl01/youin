@@ -23,7 +23,7 @@
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:text="Add"
+                    android:text="@string/addButton"
                     android:visibility="visible" />
 
                 <LinearLayout
@@ -35,21 +35,21 @@
                     android:id="@+id/nameOfFriend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name of Friend"
+                    android:text="@string/nameOfFriend"
                     android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/usernameOfFriend"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="username"
+                        android:text="@string/username"
                         />
 
                 <TextView
                     android:id="@+id/idOfFriend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="friend Id"
+                    android:text="@string/friendId"
                     android:visibility="gone" />
 
                 </LinearLayout>

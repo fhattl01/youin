@@ -28,10 +28,9 @@
             <Button
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Force Crash!"
+                android:text="@string/forceCrash"
                 android:onClick="forceCrash"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
+                android:background="?android:attr/selectableItemBackground"
                 android:visibility="gone"/>
 
 
@@ -42,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="viewProfile"
                 android:background="@drawable/button_border"
-                android:text="Profile" />
+                android:text="@string/profileView" />
 
             <Button
                 android:id="@+id/viewFriends"
@@ -51,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="viewFriends"
                 android:background="@drawable/button_border"
-                android:text="Add Friends" />
+                android:text="@string/friendsView" />
 
         <Button
             android:id="@+id/logOut"
@@ -60,7 +59,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_border"
             android:onClick="logOut"
-            android:text="Log Out " />
+            android:text="@string/logOutButton" />
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/event_recycler_view"
@@ -77,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="createEventButton"
                 android:background="@drawable/create_event_button_border"
-                android:text="Create Event"
+                android:text="@string/createEventButton"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark" />
 
