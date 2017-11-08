@@ -26,4 +26,4 @@ You will also need to define a fabric.properties file with your API secret. The 
 
 Both of these files should be included in your gitignore file so you do not accidentally make the API keys public.
 
-Note: In order to build an APK file you must directly include the API key in the manifest. The mathod above works for testing on an emulator.
+Note: In order to build an APK file you must directly include the API key in the manifest. The method above works for testing on an emulator. If you encounter any issues just put the API key in the manifest.
