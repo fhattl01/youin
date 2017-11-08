@@ -36,8 +36,7 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3745caf27710486803c92956049a855e415a05c9"
-        tools:replace="android:value" />
-
+            tools:replace="android:value"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

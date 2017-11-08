@@ -43,7 +43,9 @@ public class AuthUIActivity extends AppCompatActivity {
 
 
         if (firebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(activity, EventListActivity.class));
+            startActivity(new Intent(activity, EventListActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
             return;
         } else {
             Button retry = findViewById(R.id.retrySignIn);
@@ -113,9 +115,13 @@ public class AuthUIActivity extends AppCompatActivity {
 
     public void handleProfileCreation(boolean needToCreate) {
         if (needToCreate) {
-            startActivity(new Intent(this, CreateProfileActivity.class));
+            startActivity(new Intent(this, CreateProfileActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
         } else {
-            startActivity(new Intent(this, EventListActivity.class));
+            startActivity(new Intent(this, EventListActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
         }
     }
 }

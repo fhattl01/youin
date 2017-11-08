@@ -6,5 +6,6 @@
     <string name="unknownError">Unknown Error</string>
     <string name="noEventName">Please Enter an Event Name</string>
     <string name="invalidEventTime">Please Enter a Date and Time in the Future</string>
+    <string name="addFriends">Search for Friends</string>
 
 </resources>
