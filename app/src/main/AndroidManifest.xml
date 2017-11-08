@@ -5,6 +5,7 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/my_backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -34,8 +35,9 @@
         <activity android:name=".ManageFriendsActivity"></activity>
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="@string/crashlyticskey"
-            tools:replace="android:value"/>
+            android:value="3745caf27710486803c92956049a855e415a05c9"
+        tools:replace="android:value" />
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

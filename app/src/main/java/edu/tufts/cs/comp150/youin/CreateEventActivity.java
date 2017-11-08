@@ -106,7 +106,7 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                 timeCalendar.set(Calendar.HOUR_OF_DAY, i);
                 timeCalendar.set(Calendar.MINUTE, i1);
-                SimpleDateFormat stz = new SimpleDateFormat("h:mm a");
+                SimpleDateFormat stz = new SimpleDateFormat("h:mm a", Locale.US);
                 String time = stz.format(timeCalendar.getTime());
             }
         };
@@ -124,17 +124,11 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-                                SimpleDateFormat stz = new SimpleDateFormat("h:mm a");
+                                SimpleDateFormat stz = new SimpleDateFormat("h:mm a", Locale.US);
                                 hour = hourOfDay;
                                 eventMinute = minute;
                                 eventStartTime.set(mYear, mMonth, mDay, hour, eventMinute);
-                                if (hourOfDay < 12) {
-                                    am_pm = "am";
-
-                                } else {
-                                    am_pm = "pm";
-                                }
-                                pickTime.setText(hourOfDay + ":" + eventMinute + " " + am_pm);
+                                pickTime.setText(stz.format(eventStartTime.getTime()));
                             }
                         }, currentHour, currentMinute, false);
                 timePickerDialog.show();
@@ -336,6 +330,10 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
     private void showToast(@StringRes int errorMessageRes) {
         View rootView = findViewById(R.id.createEventRoot);
         Snackbar.make(rootView, errorMessageRes, Snackbar.LENGTH_LONG).show();
+    }
+
+    public void toEventList(View v) {
+        startActivity(new Intent(this, EventListActivity.class));
     }
 
     /*

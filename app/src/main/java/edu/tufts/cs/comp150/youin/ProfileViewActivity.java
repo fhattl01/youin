@@ -3,6 +3,7 @@ package edu.tufts.cs.comp150.youin;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,5 +47,9 @@ public class ProfileViewActivity extends AppCompatActivity implements ProfileVie
         this.name.setText(profile.getFirstName() + " " + profile.getLastName());
         this.username.setText(profile.getUsername());
         this.email.setText(profile.getEmail());
+    }
+
+    public void toEventList(View v) {
+        startActivity(new Intent(this, EventListActivity.class));
     }
 }

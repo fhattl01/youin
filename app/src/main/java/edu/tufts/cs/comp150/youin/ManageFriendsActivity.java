@@ -1,5 +1,6 @@
 package edu.tufts.cs.comp150.youin;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,6 +55,8 @@ public class ManageFriendsActivity extends AppCompatActivity implements FriendLi
         manager.searchFriends(query, friendList, this);
     }
 
-
+    public void toEventList(View v) {
+        startActivity(new Intent(this, EventListActivity.class));
+    }
 
 }
