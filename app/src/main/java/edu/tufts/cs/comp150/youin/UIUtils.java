@@ -6,7 +6,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
- * Created by maggi on 10/26/17.
+ * Created by Frank on 10/26/17.
  */
 
 public class UIUtils {

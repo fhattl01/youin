@@ -7,7 +7,7 @@ import com.firebase.ui.auth.User;
 import java.util.List;
 
 /**
- * Created by maggi on 10/16/17.
+ * Created by Frank on 10/16/17.
  */
 
 public class Profile {

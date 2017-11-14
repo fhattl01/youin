@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.List;
 
 /**
- * Created by maggi on 10/26/17.
+ * Created by Frank on 10/26/17.
  */
 
 public class EventInvitedUserAdapter extends ArrayAdapter<Friend> {

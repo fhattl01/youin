@@ -53,7 +53,6 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     private void showToast(String message) {
-        //TODO figure out snackbar alerts
         CoordinatorLayout layout = findViewById(R.id.coordinatorLayout);
         Snackbar.make(layout, message, Snackbar.LENGTH_LONG).show();
     }
