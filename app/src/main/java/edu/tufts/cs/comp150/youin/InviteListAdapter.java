@@ -23,8 +23,6 @@ public class InviteListAdapter extends ArrayAdapter<Friend> {
     private List<Friend> friendList;
     private Context mContext;
 
-    //private LayoutInflater inflater;
-
     private static class ViewHolder {
         TextView friendName;
         TextView friendId;
@@ -47,7 +45,6 @@ public class InviteListAdapter extends ArrayAdapter<Friend> {
         if (convertView == null) {
             viewHolder = new ViewHolder();
 
-            //inflater = LayoutInflater.from(getContext());
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.invite_friends_row, parent, false);
             viewHolder.friendName = (TextView) convertView.findViewById(R.id.friendListName);
             viewHolder.friendId = (TextView) convertView.findViewById(R.id.friendId);
@@ -55,8 +52,6 @@ public class InviteListAdapter extends ArrayAdapter<Friend> {
 
             result = convertView;
             convertView.setTag(viewHolder);
-            //convertView = inflater.inflate(R.layout.invite_friends_row, null);
-            //convertView.
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
             result = convertView;
@@ -64,25 +59,9 @@ public class InviteListAdapter extends ArrayAdapter<Friend> {
 
         viewHolder.friendName.setText(friend.getName());
         viewHolder.friendId.setText(friend.getId());
-        Log.d("INVITE", "Friend List: " + friend.getName() + ": " + friend.getInvited());
         viewHolder.checkBox.setChecked(friend.getInvited());
 
         return result;
-        /*
-        TextView friendRow = (TextView)convertView.findViewById(R.id.friendListName);
-        if (friend.getName() != null) {
-            friendRow.setText(friend.getName());
-        }
-        TextView friendId = (TextView)convertView.findViewById(R.id.friendId);
-        if (friend.getId() != null) {
-            friendId.setText(friend.getId());
-        }
-
-        Boolean invite = (Boolean.getBoolean(convertView.findViewById(R.id.)))
-        if (friend.getInvited() == true) {
-            friend
-        }
-        return convertView;*/
     }
 }
 

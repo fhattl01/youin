@@ -39,7 +39,6 @@ public class ManageFriendsActivity extends AppCompatActivity implements FriendLi
         friendListView.setAdapter(friendsListAdapter);
 
         manager = new DatabaseManager(firebaseUser.getUid());
-        //manager.getFriendData(friendList, this);
     }
 
     @Override
@@ -50,8 +49,6 @@ public class ManageFriendsActivity extends AppCompatActivity implements FriendLi
     public void submitFriendSearch(View v) {
         EditText entry = (EditText)findViewById(R.id.friendSearch);
         String query = entry.getText().toString();
-        Log.d("QUERY", "Searching for: " + query);
-
         manager.searchFriends(query, friendList, this);
     }
 

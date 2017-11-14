@@ -36,8 +36,6 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         Button addFriend;
     }
 
-    //boolean friend = false;
-
     public FriendsListAdapter(List<Friend> friend, Context context) {
         super(context, R.layout.friends_list_row, friend);
         this.friendList = friend;
@@ -63,19 +61,14 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             result = convertView;
             convertView.setTag(viewHolder);
 
-
-            //inflater = LayoutInflater.from(getContext());
-            //.convertView = inflater.inflate(R.layout.friends_list_row, null);
         } else {
             viewHolder = (FriendsListAdapter.ViewHolder) convertView.getTag();
             result = convertView;
         }
-            Log.d("FRIEND", friend.getName());
 
             viewHolder.friendName.setText(friend.getName());
             viewHolder.friendId.setText(friend.getId());
             viewHolder.friendUsername.setText(friend.getUsername());
-            // Log.d("INVITE", "Friend List: " + friend.getName() + ": " + friend.getInvited());
             if (friend.isFriend()) {
                 viewHolder.addFriend.setVisibility(View.GONE);
             } else {
@@ -84,7 +77,6 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
                     @Override
                     public void onClick(View view) {
                         DatabaseManager manager = new DatabaseManager(user.getUid());
-                        Log.d("FRIEND", "Friend ID: " + friend.getId());
                         manager.addFriend(friend.getId());
                     }
                 });

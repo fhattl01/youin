@@ -86,12 +86,9 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
     @Override
     public void onBindViewHolder(final EventHolder holder, int position) {
         final Event event = eventList.get(position);
-        Log.d("ATTENDING", "Event Name");
-
 
         if (event != null) {
             int backgroundColor = ResourcesCompat.getColor(applicationContext.getResources(), R.color.PrimaryTealDark, null);
-            //Color.parseColor("#3a65c9");
             int noDecisionColor = ResourcesCompat.getColor(applicationContext.getResources(), R.color.SecondaryGray, null);
             holder.name.setText(event.getName());
             holder.description.setText(event.getDescription());
@@ -116,13 +113,9 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             Calendar c = Calendar.getInstance();
 
             if (position % 2 == 0) {
-                Log.d("COLOR", "Color should be grey");
                 holder.cardView.setBackgroundColor(Color.parseColor("#F5F5F5"));
-               // noDecisionColor = Color.parseColor("#F5F5F5");
             }else {
-                Log.d("COLOR", "Color should be white");
                 holder.cardView.setBackgroundColor(Color.parseColor("#FFFFFF"));
-             //   noDecisionColor = Color.parseColor("#FFFFFF");
             }
 
             c.setTimeInMillis(event.getStartTime());
