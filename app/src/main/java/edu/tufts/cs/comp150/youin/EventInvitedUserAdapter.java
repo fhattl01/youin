@@ -30,8 +30,6 @@ public class EventInvitedUserAdapter extends ArrayAdapter<Friend> {
         TextView friendUsername;
     }
 
-    //boolean friend = false;
-
     public EventInvitedUserAdapter(List<Friend> friend, Context context) {
         super(context, R.layout.friends_list_row, friend);
         this.friendList = friend;
@@ -54,10 +52,6 @@ public class EventInvitedUserAdapter extends ArrayAdapter<Friend> {
 
             result = convertView;
             convertView.setTag(viewHolder);
-
-
-            //inflater = LayoutInflater.from(getContext());
-            //.convertView = inflater.inflate(R.layout.friends_list_row, null);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
             result = convertView;

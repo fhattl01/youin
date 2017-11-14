@@ -43,7 +43,6 @@ public class DatabaseManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("Database", "profile view data cancelled");
             }
         });
     }
@@ -59,7 +58,6 @@ public class DatabaseManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("Database", "profile view data cancelled");
             }
         });
     }
@@ -70,7 +68,6 @@ public class DatabaseManager {
     }
 
     public void getEventData(final List<Event> eventList, final EventListView eventListView) {
-        Log.d("EVENT", "get event data running");
         DatabaseReference user = ref.child("users").child(uid).child("events");
         user.addValueEventListener(new ValueEventListener() {
             @Override
@@ -78,7 +75,6 @@ public class DatabaseManager {
                 eventList.clear();
                 for (final DataSnapshot event : dataSnapshot.getChildren()) {
                     final String eventId = event.getValue(String.class);
-                    Log.d("EVENT", "found event with id: " + eventId);
                     DatabaseReference eventRef = ref.child("events").child(eventId);
                     eventRef.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -96,7 +92,6 @@ public class DatabaseManager {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Log.d("Database", "profile view data cancelled");
                         }
                     });
                 }
@@ -104,7 +99,6 @@ public class DatabaseManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("Database", "profile view data cancelled");
             }
         });
     }
@@ -121,7 +115,6 @@ public class DatabaseManager {
                         @Override
                         public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                             String userId = dataSnapshot.getKey();
-                            Log.d("SEARCH", "Bad Method UID: " + userId);
                             Profile profile = dataSnapshot.getValue(Profile.class);
                             friendList.add(new Friend(profile.getFirstName() + " " + profile.getLastName(), userId, profile.getUsername(), true));
                             friendListView.friendDataChanged();
@@ -129,7 +122,6 @@ public class DatabaseManager {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Log.d("Database", "profile view data cancelled");
                         }
                     });
                 }
@@ -138,7 +130,6 @@ public class DatabaseManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("Database", "profile view data cancelled");
             }
         });
     }
@@ -150,10 +141,8 @@ public class DatabaseManager {
             public synchronized void onDataChange(DataSnapshot dataSnapshot) {
                 friendList.clear();
                 for (DataSnapshot user : dataSnapshot.getChildren()) {
-                    Log.d("SEARCH", user.toString());
                     String friendId = user.getKey();
                     Profile profile = user.getValue(Profile.class);
-                    Log.d("QUERY", "Found profile: " + profile.getUsername());
                     if (profile.getUsername().equals(query) && !uid.equals(friendId)) {
                         boolean alreadyFriends = false;
                         if (profile.getFriends() != null) {
@@ -174,7 +163,6 @@ public class DatabaseManager {
     }
 
     public void addFriend(final String friendId) {
-        Log.d("ADD", friendId);
         final DatabaseReference myProfileRef = ref.child("users").child(uid).child("friends");
         final DatabaseReference friendProfileRef = ref.child("users").child(friendId).child("friends");
         final GenericTypeIndicator<List<String>> stringList = new GenericTypeIndicator<List<String>>() {};
