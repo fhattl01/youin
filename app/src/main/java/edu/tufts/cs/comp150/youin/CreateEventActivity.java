@@ -112,7 +112,6 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
                                 hour = hourOfDay;
                                 eventMinute = minute;
                                 eventStartTime.set(mYear, mMonth, mDay, hour, eventMinute);
-                                //Log.d("CREATE", "Time Picker Change: " + eventStartTime.getTimeInMillis());
                                 pickTime.setText(stz.format(eventStartTime.getTime()));
                             }
                         }, hour, eventMinute, false);
@@ -146,7 +145,6 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
                                 mMonth = monthOfYear;
                                 mDay = dayOfMonth;
                                 eventStartTime.set(mYear, mMonth, mDay, hour, eventMinute);
-                                //Log.d("CREATE", "Date Picker Change: " + eventStartTime.getTimeInMillis());
                             }
                         }, mYear, mMonth, mDay);
                 dpd.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -160,10 +158,8 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         friendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Log.d("INVITE", "In onclicked");
                 Friend friend = friends.get(i);
                 friend.flipInvite();
-                //friends.set(i, friend);
                 inviteListAdapter.notifyDataSetChanged();
                 if (friend.getInvited()) {
                     invitedList.add(friend.getId().toString());
@@ -250,8 +246,6 @@ public class CreateEventActivity extends AppCompatActivity implements FriendList
         String location = eventLocation.getText().toString();
 
         long startTime = eventStartTime.getTimeInMillis();
-        //Log.d("CREATE", "Start Time: " + startTime);
-        //Log.d("CREATE", "Current Time " + Calendar.getInstance().getTimeInMillis());
 
         TextView minPeopleView = (TextView) findViewById(R.id.minPeopleNumber);
         int minPeople = Integer.parseInt(minPeopleView.getText().toString());
