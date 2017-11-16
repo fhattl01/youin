@@ -31,7 +31,7 @@ public class EventInvitedUserAdapter extends ArrayAdapter<Friend> {
     }
 
     public EventInvitedUserAdapter(List<Friend> friend, Context context) {
-        super(context, R.layout.friends_list_row, friend);
+        super(context, R.layout.event_invited_user_row, friend);
         this.friendList = friend;
         this.mContext = context;
         user = FirebaseAuth.getInstance().getCurrentUser();
