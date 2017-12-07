@@ -143,6 +143,10 @@ public class DatabaseManager {
                 for (DataSnapshot user : dataSnapshot.getChildren()) {
                     String friendId = user.getKey();
                     Profile profile = user.getValue(Profile.class);
+                    //Safegaurd to ensure username is not null
+                    if (profile.getUsername() == null) {
+                        profile.setUsername("");
+                    }
                     if (profile.getUsername().equals(query) && !uid.equals(friendId)) {
                         boolean alreadyFriends = false;
                         if (profile.getFriends() != null) {

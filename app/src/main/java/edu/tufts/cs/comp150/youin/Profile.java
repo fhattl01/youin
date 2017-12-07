@@ -68,4 +68,8 @@ public class Profile {
     public List<String> getEvents() {
         return events;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
