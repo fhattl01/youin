@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="edu.tufts.cs.comp150.youin">
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/my_backup_rules"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".CreateEventActivity"
+            android:label="Create an Event"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".AuthUIActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ProfileViewActivity"
+            android:label="Your Profile"/>
+        <activity
+            android:name=".CreateProfileActivity"
+            android:label="Create Your Profile"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".EventListActivity"
+            android:label="Your Events"/>
+        <activity android:name=".ManageFriendsActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="3745caf27710486803c92956049a855e415a05c9"
+            tools:replace="android:value"/>
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+</manifest>

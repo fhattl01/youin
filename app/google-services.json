@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "397163582974",
+    "firebase_url": "https://you-in-50e30.firebaseio.com",
+    "project_id": "you-in-50e30",
+    "storage_bucket": "you-in-50e30.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397163582974:android:142be266b87a9ad2",
+        "android_client_info": {
+          "package_name": "edu.tufts.cs.comp150.youin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397163582974-s1pf6daha2ao5vckm399au660gkgm95r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.tufts.cs.comp150.youin",
+            "certificate_hash": "f58375e77cbf80da0589e5d26acaa5ac8c325ab7"
+          }
+        },
+        {
+          "client_id": "397163582974-qeki5k724csols2uumpqunli229fv06l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDMyalRavq77g-eq3NX2I2f_95FU1mfHY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397163582974-qeki5k724csols2uumpqunli229fv06l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

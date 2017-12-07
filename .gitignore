@@ -1,0 +1,19 @@
+# ignore all . files and . folders
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+/app/src/main/res/values/apikeys.xml
+/app/fabric.properties
+.idea/misc.xml
+
+# Dont ignore .gitignore (this file)
+# This is just for verbosity, you can leave it out if
+# .gitignore is already tracked or if you use -f to
+# force-add it if you just created it
+!/.gitignore
