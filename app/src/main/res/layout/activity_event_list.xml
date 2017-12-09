@@ -41,7 +41,9 @@
                 android:layout_height="wrap_content"
                 android:onClick="viewProfile"
                 android:background="@drawable/button_border"
-                android:text="@string/profileView" />
+                android:text="@string/profileView"
+                android:textSize="18sp"
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/viewFriends"
@@ -50,7 +52,9 @@
                 android:layout_height="wrap_content"
                 android:onClick="viewFriends"
                 android:background="@drawable/button_border"
-                android:text="@string/friendsView" />
+                android:text="@string/friendsView"
+                android:textSize="18sp"
+                android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/logOut"
@@ -59,7 +63,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_border"
             android:onClick="logOut"
-            android:text="@string/logOutButton" />
+            android:text="@string/logOutButton"
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/event_recycler_view"
@@ -78,7 +84,8 @@
                 android:background="@drawable/create_event_button_border"
                 android:text="@string/createEventButton"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"/>
 
     </LinearLayout>
 </RelativeLayout>
